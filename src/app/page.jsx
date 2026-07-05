@@ -304,7 +304,7 @@ function Navbar() {
             S.T.A.R.K. ONE
           </span>
           <img
-            src="/src/app/weblogo.png"
+            src="/images/weblogo.png"
             alt="S.T.A.R.K. ONE logo"
             className="h-9 w-auto object-contain"
           />
@@ -876,7 +876,7 @@ function Footer() {
                 S.T.A.R.K. ONE
               </span>
               <img
-                src="/src/app/weblogo.png"
+                src="/images/weblogo.png"
                 alt="S.T.A.R.K. ONE logo"
                 className="h-8 w-auto object-contain"
               />
