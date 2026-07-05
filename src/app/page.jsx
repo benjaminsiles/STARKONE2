@@ -304,7 +304,7 @@ function Navbar() {
             S.T.A.R.K. ONE
           </span>
           <img
-            src="/images/weblogo.png"
+            src="/weblogo.png"
             alt="S.T.A.R.K. ONE logo"
             className="h-9 w-auto object-contain"
           />
@@ -316,7 +316,7 @@ function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="interactive-pulse text-[11px] font-bold text-gray-400 hover:text-white transition-colors"
+              className="text-[11px] font-bold text-gray-400 hover:text-white transition-colors"
               style={{ letterSpacing: "0.2em" }}
             >
               <FlickerText
@@ -328,7 +328,7 @@ function Navbar() {
           ))}
           <a
             href="#connect"
-            className="square-btn bg-white text-black text-[11px] font-black px-6 py-2.5 hover:bg-gray-200 uppercase"
+            className=" bg-white text-black text-[11px] font-black px-6 py-2.5 hover:bg-gray-200 uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
             Stay Connected
@@ -876,7 +876,7 @@ function Footer() {
                 S.T.A.R.K. ONE
               </span>
               <img
-                src="/images/weblogo.png"
+                src="/weblogo.png"
                 alt="S.T.A.R.K. ONE logo"
                 className="h-8 w-auto object-contain"
               />
