@@ -10,6 +10,8 @@ import {
   X,
   ChevronRight,
   ShieldCheck,
+  Instagram,
+  Music,
 } from "lucide-react";
 
 /* ─────────────────────────────────────────────
@@ -81,16 +83,78 @@ function useGlobalStyles() {
       ::-webkit-scrollbar-thumb:hover { background: #2e2e2e; }
 
       ::selection { background: white; color: black; }
+
+      /* Smooth scrolling and subtle hover animations for important elements */
+      :root, html, body {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .smooth-scroll {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      @keyframes slowFlicker {
+        0% { opacity: 1; filter: brightness(1) saturate(1); }
+        20% { opacity: 0.8; filter: brightness(1.16) saturate(1.12); }
+        40% { opacity: 1; filter: brightness(1.04) saturate(1.04); }
+        60% { opacity: 0.85; filter: brightness(0.94) saturate(0.95); }
+        80% { opacity: 0.98; filter: brightness(1.12) saturate(1.08); }
+        100% { opacity: 1; filter: brightness(1) saturate(1); }
+      }
+
+      @keyframes slowPulse {
+        0% { transform: scale(1); }
+        20% { transform: scale(1.015); }
+        40% { transform: scale(1.035); }
+        60% { transform: scale(1.015); }
+        80% { transform: scale(1.02); }
+        100% { transform: scale(1); }
+      }
+
+      .interactive-pulse {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transform-origin: center;
+        transition: transform 220ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease, filter 220ms ease, text-shadow 220ms ease, box-shadow 220ms ease;
+        will-change: transform, opacity, filter, text-shadow, box-shadow;
+        cursor: pointer;
+      }
+
+      .interactive-pulse:hover,
+      .interactive-pulse:focus-visible {
+        animation: slowFlicker 1.25s infinite linear, slowPulse 1.05s infinite ease-in-out;
+        filter: brightness(1.16) saturate(1.1);
+        text-shadow: 0 0 10px rgba(255,255,255,0.2);
+        outline: none;
+        box-shadow: none;
+      }
+
+      .interactive-pulse:not(:hover):not(:focus-visible) {
+        animation: none;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .interactive-pulse {
+          animation: none !important;
+          transition: none !important;
+          transform: none !important;
+        }
+      }
     `;
 
-    // Avoid duplicate injection on HMR
-    if (!document.getElementById("stark-global-styles")) {
+    const existing = document.getElementById("stark-global-styles");
+    if (existing) {
+      existing.textContent = style.textContent;
+    } else {
       document.head.appendChild(style);
     }
 
     return () => {
-      const existing = document.getElementById("stark-global-styles");
-      if (existing) existing.remove();
+      const el = document.getElementById("stark-global-styles");
+      if (el) el.remove();
     };
   }, []);
 }
@@ -122,7 +186,7 @@ function FlickerText({ text, className = "", tag: Tag = "span", delay = 0 }) {
 ───────────────────────────────────────────── */
 function SmoothScroll({ children }) {
   const containerRef = useRef(null);
-  const state = useRef({ current: 0, target: 0, ease: 0.075, rafId: null });
+  const state = useRef({ current: 0, target: 0, ease: 0.08, rafId: null, lastTime: 0 });
 
   // Anchor-click handler defined outside useEffect — fine, uses guards
   const handleAnchorClick = useCallback((e) => {
@@ -156,10 +220,18 @@ function SmoothScroll({ children }) {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    const tick = () => {
+    // Time-compensated lerp for consistent, gliding smoothing across frame rates
+    state.current.lastTime = performance.now();
+    const tick = (time) => {
       const s = state.current;
-      s.current += (s.target - s.current) * s.ease;
-      if (Math.abs(s.target - s.current) < 0.05) s.current = s.target;
+      const dt = Math.min(64, time - s.lastTime);
+      s.lastTime = time;
+      const delta = s.target - s.current;
+      // Convert ease into a per-frame smoothing factor scaled by delta time
+      const frameMs = 1000 / 60;
+      const k = 1 - Math.pow(1 - s.ease, dt / frameMs);
+      s.current += delta * k;
+      if (Math.abs(delta) < 0.1) s.current = s.target;
       container.style.transform = `translateY(-${s.current}px)`;
       s.rafId = requestAnimationFrame(tick);
     };
@@ -222,15 +294,20 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-white flex items-center justify-center">
-            <span className="text-black font-black text-base italic">S1</span>
-          </div>
           <span
             className="text-white font-bold text-sm uppercase"
-            style={{ letterSpacing: "0.25em" }}
+            style={{
+              letterSpacing: "0.25em",
+              fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
+            }}
           >
             S.T.A.R.K. ONE
           </span>
+          <img
+            src="/src/app/weblogo.png"
+            alt="S.T.A.R.K. ONE logo"
+            className="h-9 w-auto object-contain"
+          />
         </div>
 
         {/* Desktop links */}
@@ -239,7 +316,7 @@ function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="text-[11px] font-bold text-gray-400 hover:text-white transition-colors"
+              className="interactive-pulse text-[11px] font-bold text-gray-400 hover:text-white transition-colors"
               style={{ letterSpacing: "0.2em" }}
             >
               <FlickerText
@@ -251,20 +328,13 @@ function Navbar() {
           ))}
           <a
             href="#connect"
-            className="bg-white text-black text-[11px] font-black px-6 py-2.5 hover:bg-gray-200 transition-colors uppercase"
+            className="square-btn bg-white text-black text-[11px] font-black px-6 py-2.5 hover:bg-gray-200 uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
             Stay Connected
           </a>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden text-white"
-          onClick={() => setMenuOpen((v) => !v)}
-        >
-          {menuOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
       </div>
 
       {/* Mobile drawer */}
@@ -274,7 +344,7 @@ function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="text-white font-bold text-sm uppercase"
+              className="interactive-pulse text-white font-bold text-sm uppercase"
               style={{ letterSpacing: "0.15em" }}
               onClick={() => setMenuOpen(false)}
             >
@@ -286,7 +356,7 @@ function Navbar() {
             </a>
           ))}
           <button
-            className="bg-white text-black font-black py-3 uppercase text-sm"
+            className="square-btn bg-white text-black font-black py-3 uppercase text-sm"
             style={{ letterSpacing: "0.15em" }}
           >
             Stay Connected
@@ -306,7 +376,7 @@ function Hero() {
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
-          src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1643877970211-1a47b2e528b7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="fusion plasma nebula"
           className="w-full h-full object-cover opacity-35"
         />
@@ -336,7 +406,7 @@ function Hero() {
         >
           STARK
           <br />
-          <span style={{ color: "rgba(255,255,255,0.25)" }}>ONE.</span>
+          <span style={{ color: "rgba(255, 255, 255, 1)" }}>ONE.</span>
         </h1>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-[rgba(255,255,255,0.08)] pt-8">
@@ -347,14 +417,14 @@ function Hero() {
           <div className="flex gap-4 shrink-0">
             <a
               href="#mission"
-              className="flex items-center gap-2 bg-white text-black font-black px-7 py-4 hover:bg-gray-200 transition-all uppercase text-xs"
+              className="square-btn flex items-center gap-2 bg-white text-black font-black px-7 py-4 hover:bg-gray-200 uppercase text-xs"
               style={{ letterSpacing: "0.15em" }}
             >
               Explore <ArrowRight size={14} />
             </a>
             <a
               href="#connect"
-              className="flex items-center gap-2 border border-[rgba(255,255,255,0.3)] text-white font-bold px-7 py-4 hover:bg-[rgba(255,255,255,0.05)] transition-all uppercase text-xs"
+              className="square-btn flex items-center gap-2 border border-[rgba(255,255,255,0.3)] text-white font-bold px-7 py-4 hover:bg-[rgba(255,255,255,0.05)] uppercase text-xs"
               style={{ letterSpacing: "0.15em" }}
             >
               Join Us
@@ -438,7 +508,7 @@ function CatalogPanel({
           <div className="mt-12">
             <a
               href="#connect"
-              className="inline-flex items-center gap-3 text-white text-xs font-black uppercase group border-b border-[rgba(255,255,255,0.2)] pb-2 hover:border-white transition-colors"
+              className="interactive-pulse inline-flex items-center gap-3 text-white text-xs font-black uppercase group border-b border-[rgba(255,255,255,0.2)] pb-2 hover:border-white transition-colors"
               style={{ letterSpacing: "0.15em" }}
             >
               Learn More{" "}
@@ -619,28 +689,11 @@ function WorkContent() {
 function EventsSection() {
   const events = [
     {
-      date: "24",
-      month: "JUL 2026",
-      title: "Fusion Technology Community Workshop",
-      time: "6:00 PM EST",
-      location: "Community Center, Bronx NY",
+      date: "TBD",
+      title: "Fusion 101 + Q&A",
+      time: "TBD",
+      location: "Potomac Library, VA",
       tag: "EDUCATION",
-    },
-    {
-      date: "08",
-      month: "AUG 2026",
-      title: "STEM Careers Night — Pathways Panel",
-      time: "7:00 PM EST",
-      location: "New York Public Library",
-      tag: "CAREERS",
-    },
-    {
-      date: "15",
-      month: "SEP 2026",
-      title: "Climate Action Summit: Youth Edition",
-      time: "10:00 AM EST",
-      location: "Virtual + In-Person",
-      tag: "CLIMATE",
     },
   ];
 
@@ -729,7 +782,7 @@ function EventsSection() {
               </div>
 
               <button
-                className="shrink-0 bg-white text-black font-black px-7 py-3 text-xs uppercase opacity-0 group-hover:opacity-100 transition-opacity"
+                className="square-btn shrink-0 bg-white text-black font-black px-7 py-3 text-xs uppercase opacity-0 group-hover:opacity-100"
                 style={{ letterSpacing: "0.15em" }}
               >
                 Register
@@ -741,7 +794,7 @@ function EventsSection() {
         <div className="mt-12 flex justify-end">
           <a
             href="#"
-            className="inline-flex items-center gap-3 text-[rgba(255,255,255,0.4)] hover:text-white text-xs font-black uppercase transition-colors border-b border-[rgba(255,255,255,0.2)] pb-1 hover:border-white"
+            className="interactive-pulse inline-flex items-center gap-3 text-[rgba(255,255,255,0.4)] hover:text-white text-xs font-black uppercase transition-colors border-b border-[rgba(255,255,255,0.2)] pb-1 hover:border-white"
             style={{ letterSpacing: "0.15em" }}
           >
             All Events <ChevronRight size={12} />
@@ -786,54 +839,17 @@ function CTASection() {
             </p>
           </div>
 
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-            <div>
-              <label
-                className="text-[10px] font-black text-gray-400 uppercase block mb-2"
-                style={{ letterSpacing: "0.15em" }}
-              >
-                Your Email
-              </label>
-              <input
-                type="email"
-                placeholder="hello@example.com"
-                className="w-full bg-gray-100 px-5 py-4 text-sm font-medium focus:ring-2 focus:ring-black outline-none text-black"
-                style={{ border: "none" }}
-              />
-            </div>
-            <div>
-              <label
-                className="text-[10px] font-black text-gray-400 uppercase block mb-2"
-                style={{ letterSpacing: "0.15em" }}
-              >
-                I'm interested in
-              </label>
-              <div className="flex flex-wrap gap-2">
-                {[
-                  "Fusion 101",
-                  "STEM Pathways",
-                  "Climate Action",
-                  "Events",
-                ].map((tag) => (
-                  <button
-                    key={tag}
-                    type="button"
-                    className="border border-gray-300 text-gray-600 text-xs font-bold px-4 py-2 hover:bg-black hover:text-white hover:border-black transition-all uppercase"
-                    style={{ letterSpacing: "0.08em" }}
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-black text-white font-black py-4 hover:bg-gray-900 transition-colors uppercase text-xs flex items-center justify-center gap-3"
+          <div className="flex justify-start">
+            <a
+              href="https://forms.gle/3JegsguX2pfSoC2M7"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="square-btn square-btn-dark bg-black text-white font-black py-4 px-8 hover:bg-gray-900 uppercase text-xs flex items-center justify-center gap-3"
               style={{ letterSpacing: "0.15em" }}
             >
               Count Me In <ArrowRight size={14} />
-            </button>
-          </form>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -850,15 +866,20 @@ function Footer() {
         <div className="grid md:grid-cols-12 gap-12 mb-20">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-white flex items-center justify-center">
-                <span className="text-black font-black text-sm italic">S1</span>
-              </div>
               <span
                 className="text-white font-bold text-sm uppercase"
-                style={{ letterSpacing: "0.25em" }}
+                style={{
+                  letterSpacing: "0.25em",
+                  fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
+                }}
               >
                 S.T.A.R.K. ONE
               </span>
+              <img
+                src="/src/app/weblogo.png"
+                alt="S.T.A.R.K. ONE logo"
+                className="h-8 w-auto object-contain"
+              />
             </div>
             <p className="text-gray-600 text-sm leading-relaxed font-light max-w-xs">
               STEM Through Awareness, Resilience &amp; Knowledge — bridging the
@@ -871,20 +892,16 @@ function Footer() {
               className="text-white font-black text-[10px] uppercase mb-6"
               style={{ letterSpacing: "0.15em" }}
             >
-              Explore
+              
             </h5>
             <ul className="space-y-4">
               {[
-                "Our Mission",
-                "Why S.T.A.R.K. One",
-                "STEM Pathways",
-                "Fusion 101",
-                "Climate Action",
+              ,
               ].map((l) => (
                 <li key={l}>
                   <a
                     href="#"
-                    className="text-gray-600 hover:text-white transition-colors text-sm font-light"
+                    className="interactive-pulse text-gray-600 hover:text-white transition-colors text-sm font-light"
                   >
                     {l}
                   </a>
@@ -906,21 +923,52 @@ function Footer() {
                   href="mailto:info@starkone.org"
                   className="text-gray-600 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
                 >
-                  <Mail size={13} /> info@starkone.org
+                  <Mail size={13} /> starkone.stem@gmail.com
                 </a>
               </li>
-              {["Press Inquiries", "Event Partnerships", "Volunteer"].map(
+              {["Woodbridge, VA "].map(
                 (l) => (
                   <li key={l}>
                     <a
                       href="#"
-                      className="text-gray-600 hover:text-white transition-colors text-sm font-light"
+                      className="interactive-pulse text-gray-600 hover:text-white transition-colors text-sm font-light"
                     >
                       {l}
                     </a>
                   </li>
                 ),
               )}
+            </ul>
+          </div>
+
+          <div className="md:col-span-3">
+            <h5
+              className="text-white font-black text-[10px] uppercase mb-6"
+              style={{ letterSpacing: "0.15em" }}
+            >
+              Follow Us
+            </h5>
+            <ul className="space-y-4">
+              <li>
+                <a
+                  href="https://www.instagram.com/starkone.va/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
+                >
+                  <Instagram size={13} /> Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.tiktok.com/@starkone.stem"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
+                >
+                  <Music size={13} /> TikTok
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -936,11 +984,8 @@ function Footer() {
             className="flex gap-8 text-[rgba(255,255,255,0.2)] text-[10px] font-bold uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="/privacy-policy" className="interactive-pulse hover:text-white transition-colors">
               Privacy
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              Terms
             </a>
           </div>
         </div>
