@@ -186,7 +186,7 @@ function FlickerText({ text, className = "", tag: Tag = "span", delay = 0 }) {
 ───────────────────────────────────────────── */
 function SmoothScroll({ children }) {
   const containerRef = useRef(null);
-  const state = useRef({ current: 0, target: 0, ease: 0.08, rafId: null, lastTime: 0 });
+  const state = useRef({ current: 0, target: 0, ease: 0.10, rafId: null, lastTime: 0 });
 
   // Anchor-click handler defined outside useEffect — fine, uses guards
   const handleAnchorClick = useCallback((e) => {

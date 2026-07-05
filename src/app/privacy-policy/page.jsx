@@ -113,7 +113,7 @@ function useGlobalStyles() {
 
 function SmoothScroll({ children }) {
   const containerRef = useRef(null);
-  const state = useRef({ current: 0, target: 0, ease: 0.08, rafId: null, lastTime: 0 });
+  const state = useRef({ current: 0, target: 0, ease: 0.10, rafId: null, lastTime: 0 });
 
   const handleAnchorClick = useCallback((e) => {
     if (typeof document === "undefined" || typeof window === "undefined") return;
