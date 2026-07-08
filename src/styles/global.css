@@ -1,0 +1,36 @@
+/*
+ * Base resets and Tailwind entry point.
+ * Imported once from main.jsx — this is the only place
+ * @tailwind directives should appear.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input, textarea, select, button {
+    @apply outline-none focus:outline-none;
+  }
+}
+
+html {
+  overflow-y: scroll;
+  scroll-behavior: auto !important;
+  margin: 0;
+  padding: 0;
+}
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+:root, html, body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.smooth-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}

@@ -1,0 +1,45 @@
+/*
+ * Le Jour Serif — self-hosted font definitions.
+ *
+ * The project previously loaded this font from https://fonts.cdnfonts.com,
+ * which is an unlicensed third-party mirror that frequently returns HTTP 500
+ * errors (including on Cloudflare Pages). That remote @import has been
+ * removed.
+ *
+ * Le Jour Serif is a commercial font and its files are NOT bundled in this
+ * repo. Until real font files are added, every "Le Jour Serif" usage in the
+ * app already falls back to 'Playfair Display', Georgia, serif — so the
+ * design keeps working with no external network requests.
+ *
+ * To self-host the real font later:
+ *   1. Buy/obtain licensed Le Jour Serif files (.woff2 preferred, .woff/.ttf
+ *      as fallback).
+ *   2. Drop them into /public/fonts/le-jour-serif/ using the filenames
+ *      referenced below (see /public/fonts/README.md).
+ *   3. Uncomment the @font-face blocks below.
+ *
+ * Once uncommented, no other code changes are needed — every component
+ * already references the family name "Le Jour Serif" with proper fallbacks.
+ */
+
+/*
+@font-face {
+  font-family: 'Le Jour Serif';
+  src: url('/fonts/le-jour-serif/le-jour-serif-regular.woff2') format('woff2'),
+       url('/fonts/le-jour-serif/le-jour-serif-regular.woff') format('woff'),
+       url('/fonts/le-jour-serif/le-jour-serif-regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Le Jour Serif';
+  src: url('/fonts/le-jour-serif/le-jour-serif-italic.woff2') format('woff2'),
+       url('/fonts/le-jour-serif/le-jour-serif-italic.woff') format('woff'),
+       url('/fonts/le-jour-serif/le-jour-serif-italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+*/

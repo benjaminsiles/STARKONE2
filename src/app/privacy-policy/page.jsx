@@ -1,116 +1,6 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { ArrowLeft } from "lucide-react";
 
-function useGlobalStyles() {
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.id = "stark-global-styles";
-    style.textContent = `
-      @import url('https://fonts.cdnfonts.com/css/le-jour-serif');
-
-      html {
-        overflow-y: scroll;
-        scroll-behavior: auto !important;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        overflow: hidden;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root, html, body {
-        scroll-behavior: smooth;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      /* Neon flicker */
-      @keyframes neonFlicker {
-        0%   { opacity: 1; }
-        3%   { opacity: 0.35; }
-        5%   { opacity: 1; }
-        7%   { opacity: 0.55; }
-        9%   { opacity: 1; }
-        52%  { opacity: 1; }
-        54%  { opacity: 0.2; }
-        55%  { opacity: 1; }
-        88%  { opacity: 1; }
-        90%  { opacity: 0.45; }
-        91%  { opacity: 1; }
-        94%  { opacity: 0.75; }
-        96%  { opacity: 1; }
-        100% { opacity: 1; }
-      }
-
-      /* Scrollbar */
-      ::-webkit-scrollbar { width: 5px; }
-      ::-webkit-scrollbar-track { background: #080808; }
-      ::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 3px; }
-      ::-webkit-scrollbar-thumb:hover { background: #2e2e2e; }
-
-      ::selection { background: white; color: black; }
-
-      @keyframes slowFlicker {
-        0% { opacity: 1; filter: brightness(1) saturate(1); }
-        20% { opacity: 0.8; filter: brightness(1.16) saturate(1.12); }
-        40% { opacity: 1; filter: brightness(1.04) saturate(1.04); }
-        60% { opacity: 0.85; filter: brightness(0.94) saturate(0.95); }
-        80% { opacity: 0.98; filter: brightness(1.12) saturate(1.08); }
-        100% { opacity: 1; filter: brightness(1) saturate(1); }
-      }
-
-      @keyframes slowPulse {
-        0% { transform: scale(1); }
-        20% { transform: scale(1.015); }
-        40% { transform: scale(1.035); }
-        60% { transform: scale(1.015); }
-        80% { transform: scale(1.02); }
-        100% { transform: scale(1); }
-      }
-
-      .interactive-pulse {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transform-origin: center;
-        transition: transform 220ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease, filter 220ms ease, text-shadow 220ms ease, box-shadow 220ms ease;
-        will-change: transform, opacity, filter, text-shadow, box-shadow;
-        cursor: pointer;
-      }
-
-      .interactive-pulse:hover,
-      .interactive-pulse:focus-visible {
-        animation: slowFlicker 1.25s infinite linear, slowPulse 1.05s infinite ease-in-out;
-        filter: brightness(1.16) saturate(1.1);
-        text-shadow: 0 0 10px rgba(255,255,255,0.2);
-        outline: none;
-        box-shadow: none;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .interactive-pulse {
-          animation: none !important;
-          transition: none !important;
-          transform: none !important;
-        }
-      }
-    `;
-
-    const existing = document.getElementById("stark-global-styles");
-    if (existing) {
-      existing.textContent = style.textContent;
-    } else {
-      document.head.appendChild(style);
-    }
-
-    return () => {
-      const el = document.getElementById("stark-global-styles");
-      if (el) el.remove();
-    };
-  }, []);
-}
-
 function SmoothScroll({ children }) {
   const containerRef = useRef(null);
   const state = useRef({ current: 0, target: 0, ease: 0.10, rafId: null, lastTime: 0 });
@@ -185,8 +75,6 @@ function SmoothScroll({ children }) {
 }
 
 export default function PrivacyPolicy() {
-  useGlobalStyles();
-
   return (
     <SmoothScroll>
       <div className="bg-[#080808] min-h-screen" style={{ fontFamily: "sans-serif" }}>

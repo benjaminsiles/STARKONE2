@@ -1,0 +1,145 @@
+/*
+ * Keyframes and animation-driven interaction classes used across pages.
+ */
+
+/* Panel reveal on scroll */
+.catalog-panel > div > div {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.catalog-panel.is-visible > div > div {
+  opacity: 1;
+  transform: translateY(0);
+}
+.catalog-panel.is-visible > div > div:nth-child(2) {
+  transition-delay: 0.15s;
+}
+
+/* Neon flicker */
+@keyframes neonFlicker {
+  0%   { opacity: 1; }
+  3%   { opacity: 0.35; }
+  5%   { opacity: 1; }
+  7%   { opacity: 0.55; }
+  9%   { opacity: 1; }
+  52%  { opacity: 1; }
+  54%  { opacity: 0.2; }
+  55%  { opacity: 1; }
+  88%  { opacity: 1; }
+  90%  { opacity: 0.45; }
+  91%  { opacity: 1; }
+  94%  { opacity: 0.75; }
+  96%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+.flicker-label .flicker-letter,
+.flicker-label-dark .flicker-letter,
+.flicker-nav .flicker-letter {
+  animation: neonFlicker 5s infinite;
+  animation-timing-function: steps(1, end);
+}
+
+@keyframes slowFlicker {
+  0% { opacity: 1; filter: brightness(1) saturate(1); }
+  20% { opacity: 0.8; filter: brightness(1.16) saturate(1.12); }
+  40% { opacity: 1; filter: brightness(1.04) saturate(1.04); }
+  60% { opacity: 0.85; filter: brightness(0.94) saturate(0.95); }
+  80% { opacity: 0.98; filter: brightness(1.12) saturate(1.08); }
+  100% { opacity: 1; filter: brightness(1) saturate(1); }
+}
+
+@keyframes slowPulse {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.015); }
+  40% { transform: scale(1.035); }
+  60% { transform: scale(1.015); }
+  80% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.interactive-pulse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  transition: transform 220ms cubic-bezier(.2,.9,.2,1), opacity 220ms ease, filter 220ms ease, text-shadow 220ms ease, box-shadow 220ms ease;
+  will-change: transform, opacity, filter, text-shadow, box-shadow;
+  cursor: pointer;
+}
+
+.interactive-pulse:hover,
+.interactive-pulse:focus-visible {
+  animation: slowFlicker 1.25s infinite linear, slowPulse 1.05s infinite ease-in-out;
+  filter: brightness(1.16) saturate(1.1);
+  text-shadow: 0 0 10px rgba(255,255,255,0.2);
+  outline: none;
+  box-shadow: none;
+}
+
+.interactive-pulse:not(:hover):not(:focus-visible) {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interactive-pulse {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+@keyframes squareBtnPulse {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+  50% {
+    filter: brightness(1.18);
+    box-shadow: 0 0 22px 3px rgba(255, 255, 255, 0.45);
+  }
+}
+
+@keyframes squareBtnPulseDark {
+  0%, 100% {
+    filter: brightness(1);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+  }
+  50% {
+    filter: brightness(1.12);
+    box-shadow: 0 0 22px 3px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.square-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-property: background-color, color, border-color, opacity !important;
+  transition-duration: 220ms !important;
+  transition-timing-function: ease !important;
+}
+
+.square-btn:hover,
+.square-btn:focus-visible {
+  animation: squareBtnPulse 1.1s infinite ease-in-out !important;
+  outline: none;
+}
+
+.square-btn-dark:hover,
+.square-btn-dark:focus-visible {
+  animation: squareBtnPulseDark 1.1s infinite ease-in-out !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .square-btn:hover,
+  .square-btn:focus-visible,
+  .square-btn-dark:hover,
+  .square-btn-dark:focus-visible {
+    animation: none !important;
+    filter: none !important;
+    box-shadow: none !important;
+  }
+}

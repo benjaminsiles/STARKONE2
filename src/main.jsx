@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import StarkOneLanding from './app/page.jsx';
 import PrivacyPolicy from './app/privacy-policy/page.jsx';
-import './app/global.css';
+import './styles/global.css';
+import './styles/fonts.css';
+import './styles/animations.css';
+import './styles/scrollbar.css';
 
 function AppRouter() {
   const [pathname, setPathname] = useState(() => window.location.pathname);
