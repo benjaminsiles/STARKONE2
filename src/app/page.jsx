@@ -44,7 +44,7 @@ function SmoothScroll({ children }) {
   const state = useRef({
     current: 0,
     target: 0,
-    ease: 0.10,
+    ease: 0.09,
     rafId: null,
     lastTime: 0,
   });
@@ -589,11 +589,14 @@ function WorkContent() {
 function EventsSection() {
   const events = [
     {
-      date: "August 7, 2026",
+      date: "7",
+      month: "AUGUST 2026",
       title: "Fusion 101 + Q&A",
       time: "2:30-4:00",
       location: "Potomac Library, VA",
       tag: "EDUCATION",
+      register:
+        "https://docs.google.com/forms/d/e/1FAIpQLSdUGixGZr7_Va5sNoGvkiJhqKqDZl_Mybjg8SsmzHJRjtTaHQ/viewform",
     },
   ];
 
@@ -609,12 +612,15 @@ function EventsSection() {
             >
               04
             </span>
+
             <div className="w-16 h-px bg-[rgba(255,255,255,0.08)]" />
+
             <FlickerText
               text="EVENTS"
               className="text-[10px] font-black text-[rgba(255,255,255,0.5)] uppercase flicker-label"
             />
           </div>
+
           <h2
             className="text-3xl md:text-4xl font-light text-white"
             style={{
@@ -630,8 +636,9 @@ function EventsSection() {
           {events.map((ev, i) => (
             <div
               key={i}
-              className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-10 border-b border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.015)] transition-colors cursor-pointer px-2"
+              className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-10 border-b border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.015)] transition-colors px-2"
             >
+              {/* Date */}
               <div className="shrink-0 w-20 text-center">
                 <p
                   className="text-5xl font-light text-white leading-none"
@@ -642,6 +649,7 @@ function EventsSection() {
                 >
                   {ev.date}
                 </p>
+
                 <p
                   className="text-[10px] font-bold text-[rgba(255,255,255,0.3)] mt-1"
                   style={{ letterSpacing: "0.15em" }}
@@ -652,6 +660,7 @@ function EventsSection() {
 
               <div className="hidden md:block w-px h-12 bg-[rgba(255,255,255,0.08)] shrink-0" />
 
+              {/* Event Info */}
               <div className="flex-1">
                 <span
                   className="text-[9px] font-black text-[rgba(255,255,255,0.3)] uppercase mb-2 block"
@@ -659,6 +668,7 @@ function EventsSection() {
                 >
                   {ev.tag}
                 </span>
+
                 <h4
                   className="text-xl md:text-2xl font-light text-white mb-2 group-hover:text-[rgba(255,255,255,0.8)] transition-colors"
                   style={{
@@ -668,6 +678,7 @@ function EventsSection() {
                 >
                   {ev.title}
                 </h4>
+
                 <div
                   className="flex items-center gap-6 text-gray-600 text-xs font-medium uppercase"
                   style={{ letterSpacing: "0.1em" }}
@@ -675,22 +686,28 @@ function EventsSection() {
                   <span className="flex items-center gap-2">
                     <Calendar size={11} /> {ev.time}
                   </span>
+
                   <span className="flex items-center gap-2">
                     <ShieldCheck size={11} /> {ev.location}
                   </span>
                 </div>
               </div>
 
-              <button
-                className="square-btn shrink-0 bg-white text-black font-black px-7 py-3 text-xs uppercase opacity-0 group-hover:opacity-100"
+              {/* Register Button */}
+              <a
+                href={ev.register}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="square-btn shrink-0 bg-white text-black font-black px-7 py-3 text-xs uppercase opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{ letterSpacing: "0.15em" }}
               >
                 Register
-              </button>
+              </a>
             </div>
           ))}
         </div>
 
+        {/* All Events */}
         <div className="mt-12 flex justify-end">
           <a
             href="#"
