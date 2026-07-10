@@ -137,16 +137,16 @@ function SmoothScroll({ children }) {
 export default function PrivacyPolicy() {
   return (
     <SmoothScroll>
-      <div className="bg-[#080808] min-h-screen" style={{ fontFamily: "sans-serif" }}>
+      <div className="bg-white min-h-screen" style={{ fontFamily: "sans-serif" }}>
         {/* Header */}
         <header
           style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
-          className="bg-[#080808]/95 backdrop-blur-md py-4 border-b border-[rgba(255,255,255,0.05)]"
+          className="bg-white/95 backdrop-blur-md py-4 border-b border-[rgba(0,0,0,0.08)]"
         >
           <div className="max-w-7xl mx-auto px-6 flex items-center gap-4">
             <a
               href="/"
-              className="interactive-pulse flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+              className="flex items-center gap-2 text-black hover:text-[#1d9e75] transition-colors"
             >
               <ArrowLeft size={16} />
               <span className="text-xs font-bold uppercase" style={{ letterSpacing: "0.15em" }}>
@@ -162,20 +162,20 @@ export default function PrivacyPolicy() {
           {/* Title */}
           <div className="mb-16">
             <h1
-              className="text-5xl md:text-6xl font-light text-white mb-4"
+              className="text-5xl md:text-6xl font-light text-black mb-4"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
             >
               Privacy Policy
             </h1>
-            <p className="text-[rgba(255,255,255,0.5)] text-sm">
+            <p className="text-gray-600 text-sm">
               Effective Date: July 4, 2026
             </p>
           </div>
 
           {/* Content */}
-          <div className="prose prose-invert max-w-none text-gray-400">
+          <div className="prose max-w-none text-gray-800">
             <p className="text-base leading-relaxed font-light mb-8">
               Welcome to S.T.A.R.K. One. S.T.A.R.K. One is a STEM education initiative based in Virginia, United States. We are committed to protecting your privacy and being transparent about how we collect, use, and protect your information.
             </p>
@@ -183,14 +183,14 @@ export default function PrivacyPolicy() {
               This Privacy Policy applies to{" "}
               <a
                 href="https://starkone.org"
-                className="text-white hover:text-gray-300 transition-colors"
+                className="text-[#1d9e75] hover:text-[#17825f] transition-colors"
               >
                 https://starkone.org
               </a>
               ,{" "}
               <a
                 href="https://www.starkone.org"
-                className="text-white hover:text-gray-300 transition-colors"
+                className="text-[#1d9e75] hover:text-[#17825f] transition-colors"
               >
                 https://www.starkone.org
               </a>
@@ -199,7 +199,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 1 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -207,7 +207,7 @@ export default function PrivacyPolicy() {
               Information We Collect
             </h2>
 
-            <h3 className="text-lg font-bold text-[rgba(255,255,255,0.8)] mb-4 uppercase" style={{ letterSpacing: "0.1em" }}>
+            <h3 className="text-lg font-bold text-black mb-4 uppercase" style={{ letterSpacing: "0.1em" }}>
               Information You Provide
             </h3>
             <p className="text-base leading-relaxed font-light mb-6">
@@ -232,7 +232,7 @@ export default function PrivacyPolicy() {
               <li>Any additional information you choose to provide</li>
             </ul>
 
-            <h3 className="text-lg font-bold text-[rgba(255,255,255,0.8)] mb-4 uppercase mt-8" style={{ letterSpacing: "0.1em" }}>
+            <h3 className="text-lg font-bold text-black mb-4 uppercase mt-8" style={{ letterSpacing: "0.1em" }}>
               Automatically Collected Information
             </h3>
             <p className="text-base leading-relaxed font-light mb-6">
@@ -253,7 +253,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 2 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -269,7 +269,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 3 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -294,7 +294,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 4 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -318,7 +318,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 5 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -334,7 +334,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 6 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -350,7 +350,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 7 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -366,7 +366,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 8 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -382,7 +382,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 9 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -404,7 +404,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 10 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -420,7 +420,7 @@ export default function PrivacyPolicy() {
 
             {/* Section 11 */}
             <h2
-              className="text-2xl font-light text-white mt-12 mb-6"
+              className="text-2xl font-light text-black mt-12 mb-6"
               style={{
                 fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
               }}
@@ -430,13 +430,13 @@ export default function PrivacyPolicy() {
             <p className="text-base leading-relaxed font-light mb-4">
               If you have any questions about this Privacy Policy or how your information is handled, please contact us at:
             </p>
-            <div className="bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)] p-8 rounded">
-              <p className="text-white font-bold mb-4">S.T.A.R.K. One</p>
+            <div className="bg-[rgba(29,158,117,0.06)] border border-[rgba(29,158,117,0.3)] p-8 rounded">
+              <p className="text-black font-bold mb-4">S.T.A.R.K. One</p>
               <p className="text-base font-light">
                 Email:{" "}
                 <a
                   href="mailto:starkone.stem@gmail.com"
-                  className="text-white hover:text-gray-300 transition-colors"
+                  className="text-[#1d9e75] hover:text-[#17825f] transition-colors"
                 >
                   starkone.stem@gmail.com
                 </a>

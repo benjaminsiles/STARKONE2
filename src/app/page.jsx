@@ -14,6 +14,9 @@ import {
   Music,
 } from "lucide-react";
 
+const BRAND_GREEN = "#1d9e75";
+const BLACK_TEXT = "#000000";
+
 /* ─────────────────────────────────────────────
    FLICKERING TEXT
 ───────────────────────────────────────────── */
@@ -25,11 +28,11 @@ function FlickerText({ text, className = "", tag: Tag = "span", delay = 0 }) {
           key={i}
           className="flicker-letter"
           style={{
-            animationDelay: `${delay + i * 0.09}s`,
+            animationDelay: `${delay + i * 0.50}s`,
             display: letter === " " ? "inline" : "inline-block",
           }}
         >
-          {letter === " " ? "\u00A0" : letter}
+          {letter === " " ? " " : letter}
         </span>
       ))}
     </Tag>
@@ -187,15 +190,15 @@ function Navbar() {
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
       className={`transition-all duration-500 ${
         scrolled
-          ? "bg-[#080808]/95 backdrop-blur-md py-4 border-b border-[rgba(255,255,255,0.05)]"
-          : "bg-transparent py-6"
+          ? "bg-white/95 backdrop-blur-md py-4 border-b border-[rgba(0,0,0,0.08)]"
+          : "bg-white py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <span
-            className="text-white font-bold text-sm uppercase"
+            className="text-black font-bold text-sm uppercase"
             style={{
               letterSpacing: "0.25em",
               fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
@@ -216,7 +219,7 @@ function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              className="text-[11px] font-bold text-gray-400 hover:text-white transition-colors"
+              className="interactive-pulse text-[11px] font-bold text-gray-700 hover:text-[#1d9e75] transition-colors"
               style={{ letterSpacing: "0.2em" }}
             >
               <FlickerText
@@ -228,7 +231,7 @@ function Navbar() {
           ))}
           <a
             href="#connect"
-            className=" bg-white text-black text-[11px] font-black px-6 py-2.5 hover:bg-gray-200 uppercase"
+            className="square-btn bg-[#1d9e75] text-white text-[11px] font-black px-6 py-2.5 hover:bg-[#17825f] uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
             Stay Connected
@@ -239,12 +242,12 @@ function Navbar() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-[#080808] border-t border-[rgba(255,255,255,0.1)] px-6 py-8 flex flex-col gap-6 md:hidden">
+        <div className="absolute top-full left-0 right-0 bg-white border-t border-[rgba(0,0,0,0.08)] px-6 py-8 flex flex-col gap-6 md:hidden">
           {NAV_LINKS.map((l, i) => (
             <a
               key={l.href}
               href={l.href}
-              className="interactive-pulse text-white font-bold text-sm uppercase"
+              className="interactive-pulse text-black font-bold text-sm uppercase"
               style={{ letterSpacing: "0.15em" }}
               onClick={() => setMenuOpen(false)}
             >
@@ -256,7 +259,7 @@ function Navbar() {
             </a>
           ))}
           <button
-            className="square-btn bg-white text-black font-black py-3 uppercase text-sm"
+            className="square-btn bg-[#1d9e75] text-white font-black py-3 uppercase text-sm hover:bg-[#17825f]"
             style={{ letterSpacing: "0.15em" }}
           >
             Stay Connected
@@ -272,24 +275,24 @@ function Navbar() {
 ───────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-end bg-[#080808] overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-end bg-white overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1643877970211-1a47b2e528b7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="fusion plasma nebula"
-          className="w-full h-full object-cover opacity-35"
+          className="w-full h-full object-cover opacity-10"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent" />
       </div>
 
-      <div className="absolute top-0 left-0 right-0 h-[2px] bg-[rgba(255,255,255,0.08)] z-10" />
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-[#1d9e75] z-10" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pb-24 pt-48">
         <div className="flex items-center gap-3 mb-8">
-          <div className="w-8 h-px bg-[rgba(255,255,255,0.4)]" />
+          <div className="w-8 h-px bg-[#1d9e75]" />
           <span
-            className="text-[10px] font-bold text-[rgba(255,255,255,0.5)] uppercase"
+            className="text-[10px] font-bold text-[#1d9e75] uppercase"
             style={{ letterSpacing: "0.35em" }}
           >
             STEM • AWARENESS • RESILIENCE • KNOWLEDGE
@@ -297,7 +300,7 @@ function Hero() {
         </div>
 
         <h1
-          className="text-[13vw] md:text-[10vw] text-white mb-10 uppercase"
+          className="text-[13vw] md:text-[10vw] text-black mb-10 uppercase"
           style={{
             fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
             lineHeight: 0.88,
@@ -306,25 +309,25 @@ function Hero() {
         >
           STARK
           <br />
-          <span style={{ color: "rgba(255, 255, 255, 1)" }}>ONE.</span>
+          <span style={{ color: BLACK_TEXT  }}>ONE.</span>
         </h1>
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-[rgba(255,255,255,0.08)] pt-8">
-          <p className="text-lg md:text-xl text-gray-400 font-light max-w-xl leading-relaxed">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-[rgba(0,0,0,0.1)] pt-8">
+          <p className="text-lg md:text-xl text-gray-700 font-light max-w-xl leading-relaxed">
             Bridging STEM education, fusion energy awareness, and climate action
             for every community — starting with ours.
           </p>
           <div className="flex gap-4 shrink-0">
             <a
               href="#mission"
-              className="square-btn flex items-center gap-2 bg-white text-black font-black px-7 py-4 hover:bg-gray-200 uppercase text-xs"
+              className="square-btn flex items-center gap-2 bg-[#1d9e75] text-white font-black px-7 py-4 hover:bg-[#17825f] uppercase text-xs"
               style={{ letterSpacing: "0.15em" }}
             >
               Explore <ArrowRight size={14} />
             </a>
             <a
               href="#connect"
-              className="square-btn flex items-center gap-2 border border-[rgba(255,255,255,0.3)] text-white font-bold px-7 py-4 hover:bg-[rgba(255,255,255,0.05)] uppercase text-xs"
+              className="square-btn flex items-center gap-2 border border-[#1d9e75] text-[#1d9e75] font-bold px-7 py-4 hover:bg-[rgba(29,158,117,0.08)] uppercase text-xs"
               style={{ letterSpacing: "0.15em" }}
             >
               Join Us
@@ -368,32 +371,32 @@ function CatalogPanel({
     <section
       id={id}
       ref={ref}
-      className={`catalog-panel border-b border-[rgba(255,255,255,0.06)]${visible ? " is-visible" : ""}`}
+      className={`catalog-panel border-b border-[rgba(0,0,0,0.08)]${visible ? " is-visible" : ""}`}
     >
       <div className="max-w-7xl mx-auto px-6 py-28 md:py-36 grid md:grid-cols-2 gap-0 items-stretch">
         {/* Text column */}
         <div
-          className={`flex flex-col justify-between pb-12 md:pb-0 border-b md:border-b-0 border-[rgba(255,255,255,0.06)] ${
+          className={`flex flex-col justify-between pb-12 md:pb-0 border-b md:border-b-0 border-[rgba(0,0,0,0.08)] ${
             flip ? "md:order-2 md:pl-16" : "md:pr-16"
           }`}
         >
           <div>
             <div className="flex items-center gap-4 mb-10">
               <span
-                className="text-[10px] font-black text-[rgba(255,255,255,0.2)]"
+                className="text-[10px] font-black text-[rgba(0,0,0,0.25)]"
                 style={{ letterSpacing: "0.4em" }}
               >
                 {number}
               </span>
-              <div className="flex-1 h-px bg-[rgba(255,255,255,0.08)]" />
+              <div className="flex-1 h-px bg-[rgba(0,0,0,0.1)]" />
               <FlickerText
                 text={label}
-                className="text-[10px] font-black text-[rgba(255,255,255,0.5)] uppercase flicker-label"
+                className="text-[10px] font-black text-[#1d9e75] uppercase flicker-label"
                 style={{ letterSpacing: "0.4em" }}
               />
             </div>
             <h2
-              className="text-4xl md:text-5xl lg:text-6xl font-light text-white leading-[1.05] mb-10"
+              className="text-4xl md:text-5xl lg:text-6xl font-light text-black leading-[1.05] mb-10"
               style={{
                 fontFamily:
                   "'Le Jour Serif', 'Playfair Display', Georgia, serif",
@@ -401,21 +404,17 @@ function CatalogPanel({
             >
               {title}
             </h2>
-            <p className="text-gray-500 text-base leading-relaxed font-light max-w-sm">
+            <p className="text-gray-700 text-base leading-relaxed font-light max-w-sm">
               {body}
             </p>
           </div>
           <div className="mt-12">
             <a
               href="#connect"
-              className="interactive-pulse inline-flex items-center gap-3 text-white text-xs font-black uppercase group border-b border-[rgba(255,255,255,0.2)] pb-2 hover:border-white transition-colors"
+              className="inline-flex items-center gap-3 text-[#1d9e75] text-xs font-black uppercase group border-b border-[rgba(29,158,117,0.4)] pb-2 hover:border-[#1d9e75] transition-colors"
               style={{ letterSpacing: "0.15em" }}
             >
-              Learn More{" "}
-              <ChevronRight
-                size={12}
-                className="group-hover:translate-x-1 transition-transform"
-              />
+              Learn More <ChevronRight size={12} />
             </a>
           </div>
         </div>
@@ -459,10 +458,10 @@ function MissionContent() {
       {items.map((item) => (
         <div
           key={item.num}
-          className="flex gap-6 p-6 border border-[rgba(255,255,255,0.06)] hover:border-[rgba(255,255,255,0.18)] transition-colors"
+          className="flex gap-6 p-6 bg-[#1d9e75] border border-[#1d9e75] hover:border-[#17825f] transition-colors"
         >
           <span
-            className="text-[10px] font-black text-[rgba(255,255,255,0.18)] mt-1 shrink-0"
+            className="text-[10px] font-black text-[rgba(255,255,255,0.6)] mt-1 shrink-0"
             style={{ letterSpacing: "0.1em" }}
           >
             {item.num}
@@ -474,7 +473,7 @@ function MissionContent() {
             >
               {item.head}
             </p>
-            <p className="text-gray-500 text-sm leading-relaxed font-light">
+            <p className="text-white text-sm leading-relaxed font-light">
               {item.text}
             </p>
           </div>
@@ -491,7 +490,7 @@ function WhyContent() {
   return (
     <div>
       <blockquote
-        className="text-2xl md:text-3xl font-light text-white leading-snug mb-10 italic"
+        className="text-2xl md:text-3xl font-light text-black leading-snug mb-10 italic"
         style={{
           fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
         }}
@@ -507,7 +506,7 @@ function WhyContent() {
         ].map((s) => (
           <div
             key={s.stat}
-            className="border border-[rgba(255,255,255,0.06)] p-6"
+            className="bg-[#1d9e75] border border-[#1d9e75] p-6"
           >
             <p
               className="text-4xl font-light text-white mb-2"
@@ -519,7 +518,7 @@ function WhyContent() {
               {s.stat}
             </p>
             <p
-              className="text-gray-500 text-xs leading-relaxed font-light uppercase"
+              className="text-white text-xs leading-relaxed font-light uppercase"
               style={{ letterSpacing: "0.08em" }}
             >
               {s.label}
@@ -553,29 +552,29 @@ function WorkContent() {
     },
   ];
   return (
-    <div className="border border-[rgba(255,255,255,0.06)]">
+    <div className="border border-[rgba(0,0,0,0.08)]">
       {pillars.map((p, i) => (
         <div
           key={i}
-          className="flex gap-6 items-start p-8 border-b border-[rgba(255,255,255,0.06)] last:border-b-0 hover:bg-[rgba(255,255,255,0.02)] transition-colors group cursor-pointer"
+          className="flex gap-6 items-start p-8 border-b border-[rgba(0,0,0,0.08)] last:border-b-0 hover:bg-[rgba(29,158,117,0.05)] transition-colors group cursor-pointer"
         >
-          <div className="shrink-0 w-10 h-10 border border-[rgba(255,255,255,0.15)] flex items-center justify-center text-[rgba(255,255,255,0.6)] group-hover:border-white group-hover:text-white transition-colors">
+          <div className="shrink-0 w-10 h-10 border border-[rgba(29,158,117,0.4)] flex items-center justify-center text-[#1d9e75] group-hover:border-[#1d9e75] group-hover:bg-[#1d9e75] group-hover:text-white transition-colors">
             {p.icon}
           </div>
           <div className="flex-1">
             <p
-              className="text-white font-black text-xs uppercase mb-2"
+              className="text-black font-black text-xs uppercase mb-2"
               style={{ letterSpacing: "0.15em" }}
             >
               {p.title}
             </p>
-            <p className="text-gray-500 text-sm leading-relaxed font-light">
+            <p className="text-gray-700 text-sm leading-relaxed font-light">
               {p.desc}
             </p>
           </div>
           <ChevronRight
             size={14}
-            className="text-[rgba(255,255,255,0.2)] group-hover:text-white group-hover:translate-x-1 transition-all mt-1 shrink-0"
+            className="text-[rgba(0,0,0,0.25)] group-hover:text-[#1d9e75] transition-colors mt-1 shrink-0"
           />
         </div>
       ))}
@@ -601,28 +600,28 @@ function EventsSection() {
   ];
 
   return (
-    <section id="events" className="border-b border-[rgba(255,255,255,0.06)]">
+    <section id="events" className="border-b border-[rgba(0,0,0,0.08)]">
       <div className="max-w-7xl mx-auto px-6 py-28 md:py-36">
         {/* Header */}
-        <div className="flex items-end justify-between mb-16 border-b border-[rgba(255,255,255,0.06)] pb-8">
+        <div className="flex items-end justify-between mb-16 border-b border-[rgba(0,0,0,0.08)] pb-8">
           <div className="flex items-center gap-4">
             <span
-              className="text-[10px] font-black text-[rgba(255,255,255,0.2)]"
+              className="text-[10px] font-black text-[rgba(0,0,0,0.25)]"
               style={{ letterSpacing: "0.4em" }}
             >
               04
             </span>
 
-            <div className="w-16 h-px bg-[rgba(255,255,255,0.08)]" />
+            <div className="w-16 h-px bg-[rgba(0,0,0,0.1)]" />
 
             <FlickerText
               text="EVENTS"
-              className="text-[10px] font-black text-[rgba(255,255,255,0.5)] uppercase flicker-label"
+              className="text-[10px] font-black text-[#1d9e75] uppercase flicker-label"
             />
           </div>
 
           <h2
-            className="text-3xl md:text-4xl font-light text-white"
+            className="text-3xl md:text-4xl font-light text-black"
             style={{
               fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
             }}
@@ -636,12 +635,12 @@ function EventsSection() {
           {events.map((ev, i) => (
             <div
               key={i}
-              className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-10 border-b border-[rgba(255,255,255,0.06)] hover:bg-[rgba(255,255,255,0.015)] transition-colors px-2"
+              className="group flex flex-col md:flex-row md:items-center gap-6 md:gap-12 py-10 border-b border-[rgba(0,0,0,0.08)] hover:bg-[rgba(29,158,117,0.04)] transition-colors px-2"
             >
               {/* Date */}
               <div className="shrink-0 w-20 text-center">
                 <p
-                  className="text-5xl font-light text-white leading-none"
+                  className="text-5xl font-light text-[#1d9e75] leading-none"
                   style={{
                     fontFamily:
                       "'Le Jour Serif', 'Playfair Display', Georgia, serif",
@@ -651,26 +650,26 @@ function EventsSection() {
                 </p>
 
                 <p
-                  className="text-[10px] font-bold text-[rgba(255,255,255,0.3)] mt-1"
+                  className="text-[10px] font-bold text-[rgba(0,0,0,0.4)] mt-1"
                   style={{ letterSpacing: "0.15em" }}
                 >
                   {ev.month}
                 </p>
               </div>
 
-              <div className="hidden md:block w-px h-12 bg-[rgba(255,255,255,0.08)] shrink-0" />
+              <div className="hidden md:block w-px h-12 bg-[rgba(0,0,0,0.1)] shrink-0" />
 
               {/* Event Info */}
               <div className="flex-1">
                 <span
-                  className="text-[9px] font-black text-[rgba(255,255,255,0.3)] uppercase mb-2 block"
+                  className="text-[9px] font-black text-[#1d9e75] uppercase mb-2 block"
                   style={{ letterSpacing: "0.4em" }}
                 >
                   {ev.tag}
                 </span>
 
                 <h4
-                  className="text-xl md:text-2xl font-light text-white mb-2 group-hover:text-[rgba(255,255,255,0.8)] transition-colors"
+                  className="text-xl md:text-2xl font-light text-black mb-2 group-hover:text-[#1d9e75] transition-colors"
                   style={{
                     fontFamily:
                       "'Le Jour Serif', 'Playfair Display', Georgia, serif",
@@ -698,7 +697,7 @@ function EventsSection() {
                 href={ev.register}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="square-btn shrink-0 bg-white text-black font-black px-7 py-3 text-xs uppercase opacity-0 group-hover:opacity-100 transition-opacity"
+                className="square-btn shrink-0 bg-[#1d9e75] text-white font-black px-7 py-3 text-xs uppercase opacity-0 group-hover:opacity-100 transition-opacity hover:bg-[#17825f]"
                 style={{ letterSpacing: "0.15em" }}
               >
                 Register
@@ -711,7 +710,7 @@ function EventsSection() {
         <div className="mt-12 flex justify-end">
           <a
             href="#"
-            className="interactive-pulse inline-flex items-center gap-3 text-[rgba(255,255,255,0.4)] hover:text-white text-xs font-black uppercase transition-colors border-b border-[rgba(255,255,255,0.2)] pb-1 hover:border-white"
+            className="inline-flex items-center gap-3 text-[rgba(0,0,0,0.5)] hover:text-[#1d9e75] text-xs font-black uppercase transition-colors border-b border-[rgba(29,158,117,0.4)] pb-1 hover:border-[#1d9e75]"
             style={{ letterSpacing: "0.15em" }}
           >
             All Events <ChevronRight size={12} />
@@ -727,14 +726,14 @@ function EventsSection() {
 ───────────────────────────────────────────── */
 function CTASection() {
   return (
-    <section id="connect" className="bg-white">
+    <section id="connect" className="bg-white border-t border-[rgba(0,0,0,0.08)]">
       <div className="max-w-7xl mx-auto px-6 py-32 md:py-48">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <div>
             <FlickerText
               text="STAY CONNECTED"
               tag="p"
-              className="text-[10px] font-black text-[rgba(0,0,0,0.3)] uppercase mb-8 flicker-label-dark"
+              className="text-[10px] font-black text-[#1d9e75] uppercase mb-8 flicker-label-dark"
               style={{ letterSpacing: "0.4em" }}
             />
             <h2
@@ -750,7 +749,7 @@ function CTASection() {
               <br />
               with Us.
             </h2>
-            <p className="text-gray-500 text-lg font-light max-w-md leading-relaxed">
+            <p className="text-gray-700 text-lg font-light max-w-md leading-relaxed">
               Drop your email and we'll keep you in the loop on events,
               resources, and ways to get involved in the STEM revolution.
             </p>
@@ -761,7 +760,7 @@ function CTASection() {
               href="https://forms.gle/3JegsguX2pfSoC2M7"
               target="_blank"
               rel="noopener noreferrer"
-              className="square-btn square-btn-dark bg-black text-white font-black py-4 px-8 hover:bg-gray-900 uppercase text-xs flex items-center justify-center gap-3"
+              className="square-btn square-btn-dark bg-[#1d9e75] text-white font-black py-4 px-8 hover:bg-[#17825f] uppercase text-xs flex items-center justify-center gap-3"
               style={{ letterSpacing: "0.15em" }}
             >
               Count Me In <ArrowRight size={14} />
@@ -778,13 +777,13 @@ function CTASection() {
 ───────────────────────────────────────────── */
 function Footer() {
   return (
-    <footer className="bg-[#080808] border-t border-[rgba(255,255,255,0.06)] py-20">
+    <footer className="bg-white border-t border-[rgba(0,0,0,0.08)] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-12 gap-12 mb-20">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3 mb-6">
               <span
-                className="text-white font-bold text-sm uppercase"
+                className="text-black font-bold text-sm uppercase"
                 style={{
                   letterSpacing: "0.25em",
                   fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
@@ -798,7 +797,7 @@ function Footer() {
                 className="h-8 w-auto object-contain"
               />
             </div>
-            <p className="text-gray-600 text-sm leading-relaxed font-light max-w-xs">
+            <p className="text-gray-700 text-sm leading-relaxed font-light max-w-xs">
               STEM Through Awareness, Resilience &amp; Knowledge — bridging the
               gap between cutting-edge science and our community.
             </p>
@@ -806,10 +805,10 @@ function Footer() {
 
           <div className="md:col-span-3">
             <h5
-              className="text-white font-black text-[10px] uppercase mb-6"
+              className="text-black font-black text-[10px] uppercase mb-6"
               style={{ letterSpacing: "0.15em" }}
             >
-              
+
             </h5>
             <ul className="space-y-4">
               {[
@@ -818,7 +817,7 @@ function Footer() {
                 <li key={l}>
                   <a
                     href="#"
-                    className="interactive-pulse text-gray-600 hover:text-white transition-colors text-sm font-light"
+                    className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light"
                   >
                     {l}
                   </a>
@@ -829,7 +828,7 @@ function Footer() {
 
           <div className="md:col-span-4">
             <h5
-              className="text-white font-black text-[10px] uppercase mb-6"
+              className="text-black font-black text-[10px] uppercase mb-6"
               style={{ letterSpacing: "0.15em" }}
             >
               Contact
@@ -838,7 +837,7 @@ function Footer() {
               <li>
                 <a
                   href="mailto:info@starkone.org"
-                  className="text-gray-600 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
+                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
                 >
                   <Mail size={13} /> starkone.stem@gmail.com
                 </a>
@@ -848,7 +847,7 @@ function Footer() {
                   <li key={l}>
                     <a
                       href="#"
-                      className="interactive-pulse text-gray-600 hover:text-white transition-colors text-sm font-light"
+                      className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light"
                     >
                       {l}
                     </a>
@@ -860,7 +859,7 @@ function Footer() {
 
           <div className="md:col-span-3">
             <h5
-              className="text-white font-black text-[10px] uppercase mb-6"
+              className="text-black font-black text-[10px] uppercase mb-6"
               style={{ letterSpacing: "0.15em" }}
             >
               Follow Us
@@ -871,7 +870,7 @@ function Footer() {
                   href="https://www.instagram.com/starkone.va/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
+                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
                 >
                   <Instagram size={13} /> Instagram
                 </a>
@@ -881,7 +880,7 @@ function Footer() {
                   href="https://www.tiktok.com/@starkone.stem"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-600 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
+                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
                 >
                   <Music size={13} /> TikTok
                 </a>
@@ -890,18 +889,18 @@ function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[rgba(255,255,255,0.06)] gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[rgba(0,0,0,0.08)] gap-4">
           <p
-            className="text-[rgba(255,255,255,0.2)] text-[10px] font-bold uppercase"
+            className="text-[rgba(0,0,0,0.4)] text-[10px] font-bold uppercase"
             style={{ letterSpacing: "0.3em" }}
           >
             © 2026 S.T.A.R.K. ONE — Bringing the Future to Light.
           </p>
           <div
-            className="flex gap-8 text-[rgba(255,255,255,0.2)] text-[10px] font-bold uppercase"
+            className="flex gap-8 text-[rgba(0,0,0,0.4)] text-[10px] font-bold uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
-            <a href="/privacy-policy" className="interactive-pulse hover:text-white transition-colors">
+            <a href="/privacy-policy" className="hover:text-[#1d9e75] transition-colors">
               Privacy
             </a>
           </div>
@@ -916,49 +915,51 @@ function Footer() {
 ───────────────────────────────────────────── */
 export default function StarkOneLanding() {
   return (
-    <SmoothScroll>
-      <div
-        className="min-h-screen bg-[#080808]"
-        style={{ fontFamily: "sans-serif" }}
-      >
-        <Navbar />
-        <Hero />
-
-        <CatalogPanel
-          id="mission"
-          number="01"
-          label="OUR MISSION"
-          title="STEM should be accessible to everyone."
-          body="At S.T.A.R.K. ONE, we believe that understanding the technologies shaping our future is not a privilege — it's a right. We exist to level the playing field."
+    <>
+      <Navbar />
+      <SmoothScroll>
+        <div
+          className="min-h-screen bg-white"
+          style={{ fontFamily: "sans-serif" }}
         >
-          <MissionContent />
-        </CatalogPanel>
+          <Hero />
 
-        <CatalogPanel
-          id="why"
-          number="02"
-          label="WHY STARK ONE"
-          title="The gap is real. We bridge it."
-          body="Too many people have never encountered a STEM mentor, a career counselor, or even a basic explanation of fusion energy. We change that — one community at a time."
-          flip
-        >
-          <WhyContent />
-        </CatalogPanel>
+          <CatalogPanel
+            id="mission"
+            number="01"
+            label="OUR MISSION"
+            title="STEM should be accessible to everyone."
+            body="At S.T.A.R.K. ONE, we believe that understanding the technologies shaping our future is not a privilege — it's a right. We exist to level the playing field."
+          >
+            <MissionContent />
+          </CatalogPanel>
 
-        <CatalogPanel
-          id="work"
-          number="03"
-          label="OUR WORK"
-          title="Three pillars. One mission."
-          body="From Fusion 101 talks to climate summits, our work is tangible, local, and built for real impact. No jargon. No gatekeeping."
-        >
-          <WorkContent />
-        </CatalogPanel>
+          <CatalogPanel
+            id="why"
+            number="02"
+            label="WHY STARK ONE"
+            title="The gap is real. We bridge it."
+            body="Too many people have never encountered a STEM mentor, a career counselor, or even a basic explanation of fusion energy. We change that — one community at a time."
+            flip
+          >
+            <WhyContent />
+          </CatalogPanel>
 
-        <EventsSection />
-        <CTASection />
-        <Footer />
-      </div>
-    </SmoothScroll>
+          <CatalogPanel
+            id="work"
+            number="03"
+            label="OUR WORK"
+            title="Three pillars. One mission."
+            body="From Fusion 101 talks to climate summits, our work is tangible, local, and built for real impact. No jargon. No gatekeeping."
+          >
+            <WorkContent />
+          </CatalogPanel>
+
+          <EventsSection />
+          <CTASection />
+          <Footer />
+        </div>
+      </SmoothScroll>
+    </>
   );
 }

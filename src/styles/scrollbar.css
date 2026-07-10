@@ -2,8 +2,8 @@
  * Custom scrollbar and text-selection styling.
  */
 ::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #080808; }
-::-webkit-scrollbar-thumb { background: #1e1e1e; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #2e2e2e; }
+::-webkit-scrollbar-track { background: #ffffff; }
+::-webkit-scrollbar-thumb { background: #1d9e75; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #17825f; }
 
-::selection { background: white; color: black; }
+::selection { background: #1d9e75; color: white; }
