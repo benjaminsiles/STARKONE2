@@ -1,163 +1,16 @@
-import React, { useEffect, useRef, useCallback, useState } from "react";
-import { ArrowLeft } from "lucide-react";
-
-function SmoothScroll({ children }) {
-  const [isMobile, setIsMobile] = useState(false);
-
-  const containerRef = useRef(null);
-  const state = useRef({
-    current: 0,
-    target: 0,
-    ease: 0.09,
-    rafId: null,
-    lastTime: 0,
-  });
-
-  const handleAnchorClick = useCallback((e) => {
-    if (typeof document === "undefined" || typeof window === "undefined") return;
-
-    const anchor = e.target.closest("a[href^='#']");
-    if (!anchor) return;
-
-    const id = anchor.getAttribute("href").slice(1);
-    const el = document.getElementById(id);
-
-    if (!el) return;
-
-    e.preventDefault();
-
-    const top = el.offsetTop;
-
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
-
-    state.current.target = top;
-  }, []);
-
-  // Detect mobile screens
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkMobile();
-
-    window.addEventListener("resize", checkMobile);
-
-    return () => {
-      window.removeEventListener("resize", checkMobile);
-    };
-  }, []);
-
-  // Desktop smooth scrolling
-  useEffect(() => {
-    if (isMobile) return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const syncHeight = () => {
-      document.body.style.height = container.scrollHeight + "px";
-    };
-
-    syncHeight();
-
-    const ro = new ResizeObserver(syncHeight);
-    ro.observe(container);
-
-    const onScroll = () => {
-      state.current.target = window.scrollY;
-    };
-
-    window.addEventListener("scroll", onScroll, {
-      passive: true,
-    });
-
-    state.current.lastTime = performance.now();
-
-    const tick = (time) => {
-      const s = state.current;
-
-      const dt = Math.min(64, time - s.lastTime);
-      s.lastTime = time;
-
-      const delta = s.target - s.current;
-
-      const frameMs = 1000 / 60;
-      const k = 1 - Math.pow(1 - s.ease, dt / frameMs);
-
-      s.current += delta * k;
-
-      if (Math.abs(delta) < 0.1) {
-        s.current = s.target;
-      }
-
-      container.style.transform = `translateY(-${s.current}px)`;
-
-      s.rafId = requestAnimationFrame(tick);
-    };
-
-    state.current.rafId = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-
-      cancelAnimationFrame(state.current.rafId);
-
-      ro.disconnect();
-
-      document.body.style.height = "";
-    };
-  }, [isMobile]);
-
-  // Mobile uses normal browser scrolling
-  if (isMobile) {
-    return <>{children}</>;
-  }
-
-  return (
-    <div
-      ref={containerRef}
-      onClick={handleAnchorClick}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        willChange: "transform",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+import React from "react";
+import { SmoothScroll } from "../../components/SmoothScroll";
+import { Navbar } from "../../components/Navbar";
+import { Footer } from "../../components/Footer";
 
 export default function PrivacyPolicy() {
   return (
+    <>
+    <Navbar />
     <SmoothScroll>
       <div className="bg-white min-h-screen" style={{ fontFamily: "sans-serif" }}>
-        {/* Header */}
-        <header
-          style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
-          className="bg-white/95 backdrop-blur-md py-4 border-b border-[rgba(0,0,0,0.08)]"
-        >
-          <div className="max-w-7xl mx-auto px-6 flex items-center gap-4">
-            <a
-              href="/"
-              className="flex items-center gap-2 text-black hover:text-[#1d9e75] transition-colors"
-            >
-              <ArrowLeft size={16} />
-              <span className="text-xs font-bold uppercase" style={{ letterSpacing: "0.15em" }}>
-                Back
-              </span>
-            </a>
-          </div>
-        </header>
-
         {/* Main content */}
-        <main className="pt-24 pb-20 px-6">
+        <main className="pt-32 pb-20 px-6">
           <div className="max-w-3xl mx-auto">
           {/* Title */}
           <div className="mb-16">
@@ -445,7 +298,9 @@ export default function PrivacyPolicy() {
           </div>
         </div>
       </main>
+      <Footer />
       </div>
     </SmoothScroll>
+    </>
   );
 }

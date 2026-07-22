@@ -1,6 +1,6 @@
 import React from 'react';
 import { hydrateRoot, createRoot } from 'react-dom/client';
-import StarkOneLanding from './app/page.jsx';
+import EventsPage from './app/events/page.jsx';
 import './styles/global.css';
 import './styles/fonts.css';
 import './styles/animations.css';
@@ -9,13 +9,10 @@ import './styles/scrollbar.css';
 const root = document.getElementById('root');
 const app = (
   <React.StrictMode>
-    <StarkOneLanding />
+    <EventsPage />
   </React.StrictMode>
 );
 
-// The build's prerender step fills #root with static markup so crawlers and
-// first paint see real content; hydrate onto it instead of re-rendering from
-// scratch. In dev (no prerendered markup yet) fall back to a normal mount.
 if (root.hasChildNodes()) {
   hydrateRoot(root, app);
 } else {

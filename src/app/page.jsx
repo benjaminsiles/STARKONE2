@@ -1,274 +1,21 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Zap,
   GraduationCap,
   Globe,
   ArrowRight,
-  Mail,
   Calendar,
-  Menu,
-  X,
   ChevronRight,
   ShieldCheck,
-  Instagram,
-  Music,
 } from "lucide-react";
+import { FlickerText } from "../components/FlickerText";
+import { SmoothScroll } from "../components/SmoothScroll";
+import { Navbar } from "../components/Navbar";
+import { Footer } from "../components/Footer";
+import { events } from "../data/events";
 
 const BRAND_GREEN = "#1d9e75";
 const BLACK_TEXT = "#000000";
-
-/* ─────────────────────────────────────────────
-   FLICKERING TEXT
-───────────────────────────────────────────── */
-function FlickerText({ text, className = "", tag: Tag = "span", delay = 0 }) {
-  return (
-    <Tag className={className}>
-      {text.split("").map((letter, i) => (
-        <span
-          key={i}
-          className="flicker-letter"
-          style={{
-            animationDelay: `${delay + i * 0.50}s`,
-            display: letter === " " ? "inline" : "inline-block",
-          }}
-        >
-          {letter === " " ? " " : letter}
-        </span>
-      ))}
-    </Tag>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   SMOOTH SCROLL — lerp/RAF, Slade-style
-───────────────────────────────────────────── */
-function SmoothScroll({ children }) {
-  const containerRef = useRef(null);
-  const state = useRef({
-    current: 0,
-    target: 0,
-    ease: 0.09,
-    rafId: null,
-    lastTime: 0,
-  });
-
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(
-        window.matchMedia("(pointer: coarse)").matches ||
-        window.innerWidth < 768
-      );
-    };
-
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  const handleAnchorClick = useCallback((e) => {
-    if (typeof document === "undefined" || typeof window === "undefined")
-      return;
-
-    const anchor = e.target.closest("a[href^='#']");
-    if (!anchor) return;
-
-    const id = anchor.getAttribute("href").slice(1);
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    e.preventDefault();
-
-    const top = el.offsetTop;
-    window.scrollTo({ top, behavior: "instant" });
-
-    state.current.target = top;
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const syncHeight = () => {
-      document.body.style.height = container.scrollHeight + "px";
-    };
-
-    syncHeight();
-
-    const ro = new ResizeObserver(syncHeight);
-    ro.observe(container);
-
-    const onScroll = () => {
-      state.current.target = window.scrollY;
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-
-    state.current.lastTime = performance.now();
-
-    const tick = (time) => {
-      const s = state.current;
-      const dt = Math.min(64, time - s.lastTime);
-
-      s.lastTime = time;
-
-      const delta = s.target - s.current;
-      const frameMs = 1000 / 60;
-      const k = 1 - Math.pow(1 - s.ease, dt / frameMs);
-
-      s.current += delta * k;
-
-      if (Math.abs(delta) < 0.1) {
-        s.current = s.target;
-      }
-
-      container.style.transform = `translateY(-${s.current}px)`;
-      s.rafId = requestAnimationFrame(tick);
-    };
-
-    state.current.rafId = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(state.current.rafId);
-      ro.disconnect();
-      document.body.style.height = "";
-    };
-  }, [isMobile]);
-
-  if (isMobile) {
-    return (
-      <div ref={containerRef} onClick={handleAnchorClick}>
-        {children}
-      </div>
-    );
-  }
-
-  return (
-    <div
-      ref={containerRef}
-      onClick={handleAnchorClick}
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100%",
-        willChange: "transform",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   NAVBAR
-───────────────────────────────────────────── */
-const NAV_LINKS = [
-  { label: "OUR MISSION", href: "#mission" },
-  { label: "WHY STARK ONE", href: "#why" },
-  { label: "OUR WORK", href: "#work" },
-  { label: "EVENTS", href: "#events" },
-];
-
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <nav
-      style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
-      className={`transition-all duration-500 ${
-        scrolled
-          ? "bg-white/95 backdrop-blur-md py-4 border-b border-[rgba(0,0,0,0.08)]"
-          : "bg-white py-6"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <span
-            className="text-black font-bold text-sm uppercase"
-            style={{
-              letterSpacing: "0.25em",
-              fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
-            }}
-          >
-            S.T.A.R.K. ONE
-          </span>
-          <img
-            src="/starkfavi.png"
-            alt="S.T.A.R.K. ONE logo"
-            className="h-9 w-auto object-contain"
-          />
-        </div>
-
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-10">
-          {NAV_LINKS.map((l, i) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="interactive-pulse text-[11px] font-bold text-gray-700 hover:text-[#1d9e75] transition-colors"
-              style={{ letterSpacing: "0.2em" }}
-            >
-              <FlickerText
-                text={l.label}
-                className="flicker-nav"
-                delay={i * 0.3}
-              />
-            </a>
-          ))}
-          <a
-            href="#connect"
-            className="square-btn bg-[#1d9e75] text-white text-[11px] font-black px-6 py-2.5 hover:bg-[#17825f] uppercase"
-            style={{ letterSpacing: "0.15em" }}
-          >
-            Stay Connected
-          </a>
-        </div>
-
-      </div>
-
-      {/* Mobile drawer */}
-      {menuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white border-t border-[rgba(0,0,0,0.08)] px-6 py-8 flex flex-col gap-6 md:hidden">
-          {NAV_LINKS.map((l, i) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="interactive-pulse text-black font-bold text-sm uppercase"
-              style={{ letterSpacing: "0.15em" }}
-              onClick={() => setMenuOpen(false)}
-            >
-              <FlickerText
-                text={l.label}
-                className="flicker-nav"
-                delay={i * 0.2}
-              />
-            </a>
-          ))}
-          <button
-            className="square-btn bg-[#1d9e75] text-white font-black py-3 uppercase text-sm hover:bg-[#17825f]"
-            style={{ letterSpacing: "0.15em" }}
-          >
-            Stay Connected
-          </button>
-        </div>
-      )}
-    </nav>
-  );
-}
 
 /* ─────────────────────────────────────────────
    HERO
@@ -307,9 +54,9 @@ function Hero() {
             letterSpacing: "-0.01em",
           }}
         >
-          STARK
+          S.T.A.R.K.{" "}
           <br />
-          <span style={{ color: BLACK_TEXT  }}>ONE.</span>
+          <span style={{ color: BLACK_TEXT }}>ONE.</span>
         </h1>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 border-t border-[rgba(0,0,0,0.1)] pt-8">
@@ -583,22 +330,9 @@ function WorkContent() {
 }
 
 /* ─────────────────────────────────────────────
-   EVENTS SECTION
+   EVENTS SECTION (homepage preview)
 ───────────────────────────────────────────── */
 function EventsSection() {
-  const events = [
-    {
-      date: "7",
-      month: "AUGUST 2026",
-      title: "Fusion 101 + Q&A",
-      time: "2:30-4:00",
-      location: "Potomac Library, VA",
-      tag: "EDUCATION",
-      register:
-        "https://docs.google.com/forms/d/e/1FAIpQLSdUGixGZr7_Va5sNoGvkiJhqKqDZl_Mybjg8SsmzHJRjtTaHQ/viewform",
-    },
-  ];
-
   return (
     <section id="events" className="border-b border-[rgba(0,0,0,0.08)]">
       <div className="max-w-7xl mx-auto px-6 py-28 md:py-36">
@@ -709,7 +443,7 @@ function EventsSection() {
         {/* All Events */}
         <div className="mt-12 flex justify-end">
           <a
-            href="#"
+            href="/events/"
             className="inline-flex items-center gap-3 text-[rgba(0,0,0,0.5)] hover:text-[#1d9e75] text-xs font-black uppercase transition-colors border-b border-[rgba(29,158,117,0.4)] pb-1 hover:border-[#1d9e75]"
             style={{ letterSpacing: "0.15em" }}
           >
@@ -773,144 +507,6 @@ function CTASection() {
 }
 
 /* ─────────────────────────────────────────────
-   FOOTER
-───────────────────────────────────────────── */
-function Footer() {
-  return (
-    <footer className="bg-white border-t border-[rgba(0,0,0,0.08)] py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-12 gap-12 mb-20">
-          <div className="md:col-span-5">
-            <div className="flex items-center gap-3 mb-6">
-              <span
-                className="text-black font-bold text-sm uppercase"
-                style={{
-                  letterSpacing: "0.25em",
-                  fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
-                }}
-              >
-                S.T.A.R.K. ONE
-              </span>
-              <img
-                src="/starkfavi.png"
-                alt="S.T.A.R.K. ONE logo"
-                className="h-8 w-auto object-contain"
-              />
-            </div>
-            <p className="text-gray-700 text-sm leading-relaxed font-light max-w-xs">
-              STEM Through Awareness, Resilience &amp; Knowledge — bridging the
-              gap between cutting-edge science and our community.
-            </p>
-          </div>
-
-          <div className="md:col-span-3">
-            <h5
-              className="text-black font-black text-[10px] uppercase mb-6"
-              style={{ letterSpacing: "0.15em" }}
-            >
-
-            </h5>
-            <ul className="space-y-4">
-              {[
-              ,
-              ].map((l) => (
-                <li key={l}>
-                  <a
-                    href="#"
-                    className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light"
-                  >
-                    {l}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="md:col-span-4">
-            <h5
-              className="text-black font-black text-[10px] uppercase mb-6"
-              style={{ letterSpacing: "0.15em" }}
-            >
-              Contact
-            </h5>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  href="mailto:info@starkone.org"
-                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
-                >
-                  <Mail size={13} /> starkone.stem@gmail.com
-                </a>
-              </li>
-              {["Woodbridge, VA "].map(
-                (l) => (
-                  <li key={l}>
-                    <a
-                      href="#"
-                      className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light"
-                    >
-                      {l}
-                    </a>
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-
-          <div className="md:col-span-3">
-            <h5
-              className="text-black font-black text-[10px] uppercase mb-6"
-              style={{ letterSpacing: "0.15em" }}
-            >
-              Follow Us
-            </h5>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  href="https://www.instagram.com/starkone.va/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
-                >
-                  <Instagram size={13} /> Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.tiktok.com/@starkone.stem"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
-                >
-                  <Music size={13} /> TikTok
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[rgba(0,0,0,0.08)] gap-4">
-          <p
-            className="text-[rgba(0,0,0,0.4)] text-[10px] font-bold uppercase"
-            style={{ letterSpacing: "0.3em" }}
-          >
-            © 2026 S.T.A.R.K. ONE — Bringing the Future to Light.
-          </p>
-          <div
-            className="flex gap-8 text-[rgba(0,0,0,0.4)] text-[10px] font-bold uppercase"
-            style={{ letterSpacing: "0.15em" }}
-          >
-            <a href="/privacy-policy" className="hover:text-[#1d9e75] transition-colors">
-              Privacy
-            </a>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-/* ─────────────────────────────────────────────
    ROOT PAGE
 ───────────────────────────────────────────── */
 export default function StarkOneLanding() {
@@ -929,7 +525,7 @@ export default function StarkOneLanding() {
             number="01"
             label="OUR MISSION"
             title="STEM should be accessible to everyone."
-            body="At S.T.A.R.K. ONE, we believe that understanding the technologies shaping our future is not a privilege — it's a right. We exist to level the playing field."
+            body="S.T.A.R.K. One is a youth-led community education initiative based in Prince William County, Northern Virginia. We connect our neighbors with clear, no-cost education in fusion energy, clean technology, engineering, and emerging science — because understanding the world's future shouldn't be a privilege. This site, starkone.org, is our official home for programs, events, and ways to get involved."
           >
             <MissionContent />
           </CatalogPanel>
