@@ -67,7 +67,9 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href="/#connect"
+            href="https://forms.gle/htNNbNea6SzEYTYq5"
+            target="_blank"
+            rel="noopener noreferrer"
             className="square-btn bg-[#1d9e75] text-white text-[11px] font-black px-6 py-2.5 hover:bg-[#17825f] uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
@@ -110,7 +112,9 @@ export function Navbar() {
             </a>
           ))}
           <a
-            href="/#connect"
+            href="https://forms.gle/htNNbNea6SzEYTYq5"
+            target="_blank"
+            rel="noopener noreferrer"
             className="square-btn bg-[#1d9e75] text-white font-black py-3 uppercase text-sm hover:bg-[#17825f] text-center"
             style={{ letterSpacing: "0.15em" }}
             onClick={() => setMenuOpen(false)}
