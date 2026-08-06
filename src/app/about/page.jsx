@@ -28,19 +28,19 @@ const FOCUS_AREAS = [
   },
 ];
 
-function SectionHeading({ number, label, title }) {
+function SectionHeading({ number, label }) {
   return (
     <div className="flex items-center gap-4 mb-10">
       <span
-        className="text-[10px] font-black text-[rgba(0,0,0,0.25)]"
+        className="text-[10px] font-black text-white/50"
         style={{ letterSpacing: "0.4em" }}
       >
         {number}
       </span>
-      <div className="flex-1 h-px bg-[rgba(0,0,0,0.1)]" />
+      <div className="flex-1 h-px bg-white/15" />
       <FlickerText
         text={label}
-        className="text-[10px] font-black text-[#1d9e75] uppercase flicker-label"
+        className="text-[10px] font-black text-white uppercase flicker-label"
       />
     </div>
   );
@@ -51,21 +51,20 @@ export default function AboutPage() {
     <>
       <Navbar />
       <SmoothScroll>
-        <div className="min-h-screen bg-white" style={{ fontFamily: "sans-serif" }}>
-          {/* Header */}
-          <header className="relative pt-48 pb-20 px-6 border-b border-[rgba(0,0,0,0.08)]">
+        <div className="min-h-screen bg-brand text-white" style={{ fontFamily: "sans-serif" }}>
+          <header className="relative pt-48 pb-20 px-6 border-b border-white/15">
             <div className="max-w-4xl mx-auto">
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-8 h-px bg-[#1d9e75]" />
+                <div className="w-8 h-px bg-white/70" />
                 <span
-                  className="text-[10px] font-bold text-[#1d9e75] uppercase"
+                  className="text-[10px] font-bold text-white/80 uppercase"
                   style={{ letterSpacing: "0.35em" }}
                 >
                   About the organization
                 </span>
               </div>
               <h1
-                className="text-5xl md:text-7xl text-black mb-8"
+                className="text-5xl md:text-7xl text-white mb-8"
                 style={{
                   fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
                   lineHeight: 1.02,
@@ -73,7 +72,7 @@ export default function AboutPage() {
               >
                 About S.T.A.R.K. One
               </h1>
-              <p className="text-lg md:text-xl text-gray-700 font-light max-w-2xl leading-relaxed">
+              <p className="text-lg md:text-xl text-white/80 font-light max-w-2xl leading-relaxed">
                 S.T.A.R.K. One is a youth-led, community education initiative
                 based in Prince William County, Northern Virginia. We connect
                 people with accessible, no-cost education in fusion energy,
@@ -83,17 +82,16 @@ export default function AboutPage() {
             </div>
           </header>
 
-          {/* Who we are */}
-          <section className="border-b border-[rgba(0,0,0,0.08)]">
+          <section className="border-b border-white/15">
             <div className="max-w-4xl mx-auto px-6 py-24">
               <SectionHeading number="01" label="Who We Are" />
               <h2
-                className="text-3xl md:text-4xl font-light text-black leading-[1.1] mb-8"
+                className="text-3xl md:text-4xl font-light text-white leading-[1.1] mb-8"
                 style={{ fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif" }}
               >
                 A student-run initiative, built for the community we live in.
               </h2>
-              <div className="space-y-6 text-gray-700 text-base leading-relaxed font-light max-w-2xl">
+              <div className="space-y-6 text-white/80 text-base leading-relaxed font-light max-w-2xl">
                 <p>
                   S.T.A.R.K. One was founded by local students who noticed the
                   same gap over and over: most people in our area have never
@@ -114,30 +112,29 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Our name */}
-          <section className="border-b border-[rgba(0,0,0,0.08)] bg-[rgba(29,158,117,0.04)]">
+          <section className="border-b border-white/15 bg-white/10">
             <div className="max-w-4xl mx-auto px-6 py-24">
               <SectionHeading number="02" label="Our Name" />
               <h2
-                className="text-3xl md:text-4xl font-light text-black leading-[1.1] mb-8"
+                className="text-3xl md:text-4xl font-light text-white leading-[1.1] mb-8"
                 style={{ fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif" }}
               >
                 S.T.A.R.K. stands for STEM Through Awareness, Resilience &amp; Knowledge.
               </h2>
-              <div className="space-y-6 text-gray-700 text-base leading-relaxed font-light max-w-2xl">
+              <div className="space-y-6 text-white/80 text-base leading-relaxed font-light max-w-2xl">
                 <p>
                   "One" reflects where we start: one community, one student,
                   one conversation at a time — with the goal of growing far
                   beyond that. You'll see our name written a few different
                   ways online and in casual conversation —{" "}
-                  <strong className="text-black font-medium">S.T.A.R.K. One</strong>,{" "}
-                  <strong className="text-black font-medium">STARK One</strong>, and{" "}
-                  <strong className="text-black font-medium">Stark One</strong> — all
+                  <strong className="text-white font-medium">S.T.A.R.K. One</strong>,{" "}
+                  <strong className="text-white font-medium">STARK One</strong>, and{" "}
+                  <strong className="text-white font-medium">Stark One</strong> — all
                   of them refer to the same organization. Our official name is
                   S.T.A.R.K. One, and our official website is{" "}
                   <a
                     href="https://starkone.org"
-                    className="text-[#1d9e75] hover:text-[#17825f] transition-colors font-medium"
+                    className="text-white hover:text-white/80 transition-colors font-medium"
                   >
                     starkone.org
                   </a>
@@ -147,12 +144,11 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Focus areas */}
-          <section className="border-b border-[rgba(0,0,0,0.08)]">
+          <section className="border-b border-white/15">
             <div className="max-w-4xl mx-auto px-6 py-24">
               <SectionHeading number="03" label="What We Focus On" />
               <h2
-                className="text-3xl md:text-4xl font-light text-black leading-[1.1] mb-12"
+                className="text-3xl md:text-4xl font-light text-white leading-[1.1] mb-12"
                 style={{ fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif" }}
               >
                 Four subjects. One accessible on-ramp into each.
@@ -161,19 +157,19 @@ export default function AboutPage() {
                 {FOCUS_AREAS.map((f) => (
                   <div
                     key={f.title}
-                    className="flex gap-5 items-start p-6 border border-[rgba(0,0,0,0.08)] hover:border-[#1d9e75] transition-colors"
+                    className="flex gap-5 items-start p-6 border border-white/15 hover:border-white/40 transition-colors"
                   >
-                    <div className="shrink-0 w-10 h-10 border border-[rgba(29,158,117,0.4)] flex items-center justify-center text-[#1d9e75]">
+                    <div className="shrink-0 w-10 h-10 border border-white/30 flex items-center justify-center text-white">
                       {f.icon}
                     </div>
                     <div>
                       <p
-                        className="text-black font-black text-xs uppercase mb-2"
+                        className="text-white font-black text-xs uppercase mb-2"
                         style={{ letterSpacing: "0.15em" }}
                       >
                         {f.title}
                       </p>
-                      <p className="text-gray-700 text-sm leading-relaxed font-light">
+                      <p className="text-white/80 text-sm leading-relaxed font-light">
                         {f.desc}
                       </p>
                     </div>
@@ -183,19 +179,18 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Where we work */}
-          <section className="border-b border-[rgba(0,0,0,0.08)] bg-[rgba(29,158,117,0.04)]">
+          <section className="border-b border-white/15 bg-white/10">
             <div className="max-w-4xl mx-auto px-6 py-24">
               <SectionHeading number="04" label="Where We Work" />
               <h2
-                className="text-3xl md:text-4xl font-light text-black leading-[1.1] mb-8"
+                className="text-3xl md:text-4xl font-light text-white leading-[1.1] mb-8"
                 style={{ fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif" }}
               >
                 Rooted in Northern Virginia.
               </h2>
               <div className="flex items-start gap-4 mb-6">
-                <MapPin size={20} className="text-[#1d9e75] shrink-0 mt-1" />
-                <p className="text-gray-700 text-base leading-relaxed font-light max-w-2xl">
+                <MapPin size={20} className="text-white shrink-0 mt-1" />
+                <p className="text-white/80 text-base leading-relaxed font-light max-w-2xl">
                   S.T.A.R.K. One is based in Prince William County, Virginia,
                   and runs its programs in and around Woodbridge, VA. We
                   partner with local venues like Potomac Library to host free,
@@ -206,31 +201,30 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* CTA */}
           <section className="py-24 px-6">
-            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border-t border-[rgba(0,0,0,0.08)] pt-12">
+            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8 border-t border-white/15 pt-12">
               <div>
                 <h2
-                  className="text-2xl md:text-3xl font-light text-black mb-2"
+                  className="text-2xl md:text-3xl font-light text-white mb-2"
                   style={{ fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif" }}
                 >
                   See S.T.A.R.K. One in action.
                 </h2>
-                <p className="text-gray-700 text-sm font-light">
+                <p className="text-white/80 text-sm font-light">
                   Check our upcoming events or head back to the homepage.
                 </p>
               </div>
               <div className="flex gap-4 shrink-0">
                 <a
                   href="/events/"
-                  className="square-btn flex items-center gap-2 bg-[#1d9e75] text-white font-black px-7 py-4 hover:bg-[#17825f] uppercase text-xs"
+                  className="square-btn flex items-center gap-2 bg-white text-brand font-black px-7 py-4 hover:bg-white/90 uppercase text-xs"
                   style={{ letterSpacing: "0.15em" }}
                 >
                   View Events <ArrowRight size={14} />
                 </a>
                 <a
                   href="/"
-                  className="square-btn flex items-center gap-2 border border-[#1d9e75] text-[#1d9e75] font-bold px-7 py-4 hover:bg-[rgba(29,158,117,0.08)] uppercase text-xs"
+                  className="square-btn flex items-center gap-2 border border-white/70 text-white font-bold px-7 py-4 hover:bg-white/10 uppercase text-xs"
                   style={{ letterSpacing: "0.15em" }}
                 >
                   Back to S.T.A.R.K. One <ChevronRight size={14} />

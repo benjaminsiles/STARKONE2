@@ -5,6 +5,17 @@ export default {
 			sans: ['Inter', 'sans-serif'],
 		},
 		extend: {
+			colors: {
+				brand: {
+					DEFAULT: 'rgb(29, 158, 117)',
+					dark: '#17825f',
+					soft: 'rgba(255, 255, 255, 0.12)',
+					border: 'rgba(255, 255, 255, 0.24)',
+					surface: 'rgba(255, 255, 255, 0.14)',
+					on: '#ffffff',
+					muted: 'rgba(255, 255, 255, 0.8)',
+				},
+			},
 			fontFamily: {
 				'a-bee-zee': 'A Bee Zee',
 				'ad-la-m-display': 'Ad La M Display',

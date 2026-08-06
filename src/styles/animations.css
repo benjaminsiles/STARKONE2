@@ -73,12 +73,12 @@
 @keyframes breatheGlow {
   0%, 100% {
     filter: brightness(1);
-    text-shadow: 0 0 6px rgba(29, 158, 117, 0.15);
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.18);
     transform: scale(1);
   }
   50% {
     filter: brightness(1.1);
-    text-shadow: 0 0 16px rgba(29, 158, 117, 0.5);
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.45);
     transform: scale(1.015);
   }
 }
@@ -113,12 +113,12 @@
 @keyframes squareBtnBreathe {
   0%, 100% {
     filter: brightness(1);
-    box-shadow: 0 0 0 0 rgba(29, 158, 117, 0);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
     transform: scale(1);
   }
   50% {
     filter: brightness(1.1);
-    box-shadow: 0 0 26px 4px rgba(29, 158, 117, 0.4);
+    box-shadow: 0 0 26px 4px rgba(255, 255, 255, 0.28);
     transform: scale(1.015);
   }
 }
@@ -126,12 +126,12 @@
 @keyframes squareBtnBreatheDark {
   0%, 100% {
     filter: brightness(1);
-    box-shadow: 0 0 0 0 rgba(29, 158, 117, 0);
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
     transform: scale(1);
   }
   50% {
     filter: brightness(1.06);
-    box-shadow: 0 0 26px 4px rgba(29, 158, 117, 0.35);
+    box-shadow: 0 0 26px 4px rgba(255, 255, 255, 0.22);
     transform: scale(1.015);
   }
 }

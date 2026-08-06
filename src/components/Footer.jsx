@@ -10,13 +10,13 @@ const SITE_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t border-[rgba(0,0,0,0.08)] py-20">
+    <footer className="bg-brand border-t border-white/15 py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-12 gap-12 mb-20">
           <div className="md:col-span-5">
             <a href="/" className="flex items-center gap-3 mb-6" aria-label="S.T.A.R.K. One — home">
               <span
-                className="text-black font-bold text-sm uppercase"
+                className="text-white font-bold text-sm uppercase"
                 style={{
                   letterSpacing: "0.25em",
                   fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
@@ -30,7 +30,7 @@ export function Footer() {
                 className="h-8 w-auto object-contain"
               />
             </a>
-            <p className="text-gray-700 text-sm leading-relaxed font-light max-w-xs">
+            <p className="text-white/80 text-sm leading-relaxed font-light max-w-xs">
               STEM Through Awareness, Resilience &amp; Knowledge — bridging the
               gap between cutting-edge science and our community.
             </p>
@@ -38,7 +38,7 @@ export function Footer() {
 
           <div className="md:col-span-3">
             <h5
-              className="text-black font-black text-[10px] uppercase mb-6"
+              className="text-white font-black text-[10px] uppercase mb-6"
               style={{ letterSpacing: "0.15em" }}
             >
               Explore
@@ -48,7 +48,7 @@ export function Footer() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light"
+                    className="text-white/80 hover:text-white transition-colors text-sm font-light"
                   >
                     {l.label}
                   </a>
@@ -59,7 +59,7 @@ export function Footer() {
 
           <div className="md:col-span-4">
             <h5
-              className="text-black font-black text-[10px] uppercase mb-6"
+              className="text-white font-black text-[10px] uppercase mb-6"
               style={{ letterSpacing: "0.15em" }}
             >
               Contact
@@ -68,12 +68,12 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:starkone.stem@gmail.com"
-                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
+                  className="text-white/80 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
                 >
                   <Mail size={13} /> starkone.stem@gmail.com
                 </a>
               </li>
-              <li className="text-gray-700 text-sm font-light">
+              <li className="text-white/80 text-sm font-light">
                 Woodbridge, VA — Prince William County
               </li>
             </ul>
@@ -81,7 +81,7 @@ export function Footer() {
 
           <div className="md:col-span-3">
             <h5
-              className="text-black font-black text-[10px] uppercase mb-6"
+              className="text-white font-black text-[10px] uppercase mb-6"
               style={{ letterSpacing: "0.15em" }}
             >
               Follow Us
@@ -92,7 +92,7 @@ export function Footer() {
                   href="https://www.instagram.com/starkone.va/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
+                  className="text-white/80 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
                 >
                   <Instagram size={13} /> Instagram
                 </a>
@@ -102,7 +102,7 @@ export function Footer() {
                   href="https://www.tiktok.com/@starkone.stem"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-700 hover:text-[#1d9e75] transition-colors text-sm font-light flex items-center gap-2"
+                  className="text-white/80 hover:text-white transition-colors text-sm font-light flex items-center gap-2"
                 >
                   <Music size={13} /> TikTok
                 </a>
@@ -111,18 +111,18 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[rgba(0,0,0,0.08)] gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/15 gap-4">
           <p
-            className="text-[rgba(0,0,0,0.4)] text-[10px] font-bold uppercase"
+            className="text-white/60 text-[10px] font-bold uppercase"
             style={{ letterSpacing: "0.3em" }}
           >
             © 2026 S.T.A.R.K. ONE — Bringing the Future to Light.
           </p>
           <div
-            className="flex gap-8 text-[rgba(0,0,0,0.4)] text-[10px] font-bold uppercase"
+            className="flex gap-8 text-white/60 text-[10px] font-bold uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
-            <a href="/privacy-policy/" className="hover:text-[#1d9e75] transition-colors">
+            <a href="/privacy-policy/" className="hover:text-white transition-colors">
               Privacy
             </a>
           </div>

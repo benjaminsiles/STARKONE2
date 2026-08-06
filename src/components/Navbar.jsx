@@ -23,19 +23,18 @@ export function Navbar() {
       style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
       className={`transition-all duration-500 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md py-4 border-b border-[rgba(0,0,0,0.08)]"
-          : "bg-white py-6"
+          ? "bg-brand/95 backdrop-blur-md py-4 border-b border-white/15"
+          : "bg-brand py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        {/* Logo — links home; the accessible name doubles as branded internal-link anchor text */}
         <a
           href="/"
           className="flex items-center gap-3"
           aria-label="S.T.A.R.K. One — home"
         >
           <span
-            className="text-black font-bold text-sm uppercase"
+            className="text-white font-bold text-sm uppercase"
             style={{
               letterSpacing: "0.25em",
               fontFamily: "'Le Jour Serif', 'Playfair Display', Georgia, serif",
@@ -50,13 +49,12 @@ export function Navbar() {
           />
         </a>
 
-        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-10">
           {NAV_LINKS.map((l, i) => (
             <a
               key={l.href}
               href={l.href}
-              className="interactive-pulse text-[11px] font-bold text-gray-700 hover:text-[#1d9e75] transition-colors"
+              className="interactive-pulse text-[11px] font-bold text-white/85 hover:text-white transition-colors"
               style={{ letterSpacing: "0.2em" }}
             >
               <FlickerText
@@ -70,17 +68,16 @@ export function Navbar() {
             href="https://forms.gle/htNNbNea6SzEYTYq5"
             target="_blank"
             rel="noopener noreferrer"
-            className="square-btn bg-[#1d9e75] text-white text-[11px] font-black px-6 py-2.5 hover:bg-[#17825f] uppercase"
+            className="square-btn bg-white/15 text-white text-[11px] font-black px-6 py-2.5 hover:bg-white/25 uppercase"
             style={{ letterSpacing: "0.15em" }}
           >
             Stay Connected
           </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
           type="button"
-          className="md:hidden text-black"
+          className="md:hidden text-white"
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
@@ -93,14 +90,13 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile drawer */}
       {menuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-white border-t border-[rgba(0,0,0,0.08)] px-6 py-8 flex flex-col gap-6 md:hidden">
+        <div className="absolute top-full left-0 right-0 bg-brand border-t border-white/15 px-6 py-8 flex flex-col gap-6 md:hidden">
           {NAV_LINKS.map((l, i) => (
             <a
               key={l.href}
               href={l.href}
-              className="interactive-pulse text-black font-bold text-sm uppercase"
+              className="interactive-pulse text-white font-bold text-sm uppercase"
               style={{ letterSpacing: "0.15em" }}
               onClick={() => setMenuOpen(false)}
             >
@@ -115,7 +111,7 @@ export function Navbar() {
             href="https://forms.gle/htNNbNea6SzEYTYq5"
             target="_blank"
             rel="noopener noreferrer"
-            className="square-btn bg-[#1d9e75] text-white font-black py-3 uppercase text-sm hover:bg-[#17825f] text-center"
+            className="square-btn bg-white/15 text-white font-black py-3 uppercase text-sm hover:bg-white/25 text-center"
             style={{ letterSpacing: "0.15em" }}
             onClick={() => setMenuOpen(false)}
           >
