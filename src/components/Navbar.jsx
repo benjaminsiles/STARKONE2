@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FlickerText } from "./FlickerText";
 
+const BRAND_GREEN = "rgb(29, 158, 117)";
+const ON_BRAND = "#ffffff";
+
 const NAV_LINKS = [
   { label: "ABOUT", href: "/about/" },
   { label: "OUR MISSION", href: "/#mission" },
@@ -20,11 +23,9 @@ export function Navbar() {
 
   return (
     <nav
-      style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50 }}
+      style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, backgroundColor: BRAND_GREEN, color: ON_BRAND }}
       className={`transition-all duration-500 ${
-        scrolled
-          ? "bg-brand/95 backdrop-blur-md py-4 border-b border-white/15"
-          : "bg-brand py-6"
+        scrolled ? "py-4 border-b border-white/15" : "py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
@@ -91,7 +92,10 @@ export function Navbar() {
       </div>
 
       {menuOpen && (
-        <div className="absolute top-full left-0 right-0 bg-brand border-t border-white/15 px-6 py-8 flex flex-col gap-6 md:hidden">
+        <div
+          className="absolute top-full left-0 right-0 border-t border-white/15 px-6 py-8 flex flex-col gap-6 md:hidden"
+          style={{ backgroundColor: BRAND_GREEN, color: ON_BRAND }}
+        >
           {NAV_LINKS.map((l, i) => (
             <a
               key={l.href}

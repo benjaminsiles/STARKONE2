@@ -5,6 +5,9 @@ import { SmoothScroll } from "../../components/SmoothScroll";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 
+const BRAND_GREEN = "rgb(29, 158, 117)";
+const ON_BRAND = "#ffffff";
+
 const FOCUS_AREAS = [
   {
     icon: <Zap size={20} />,
@@ -51,7 +54,10 @@ export default function AboutPage() {
     <>
       <Navbar />
       <SmoothScroll>
-        <div className="min-h-screen bg-brand text-white" style={{ fontFamily: "sans-serif" }}>
+        <div
+          className="min-h-screen bg-brand text-white"
+          style={{ fontFamily: "sans-serif", backgroundColor: BRAND_GREEN, color: ON_BRAND }}
+        >
           <header className="relative pt-48 pb-20 px-6 border-b border-white/15">
             <div className="max-w-4xl mx-auto">
               <div className="flex items-center gap-3 mb-8">

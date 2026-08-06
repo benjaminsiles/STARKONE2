@@ -1,6 +1,9 @@
 import React from "react";
 import { Mail, Instagram, Music } from "lucide-react";
 
+const BRAND_GREEN = "rgb(29, 158, 117)";
+const ON_BRAND = "#ffffff";
+
 const SITE_LINKS = [
   { label: "Home", href: "/" },
   { label: "About S.T.A.R.K. One", href: "/about/" },
@@ -10,7 +13,7 @@ const SITE_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="bg-brand border-t border-white/15 py-20">
+    <footer className="border-t border-white/15 py-20" style={{ backgroundColor: BRAND_GREEN, color: ON_BRAND }}>
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-12 gap-12 mb-20">
           <div className="md:col-span-5">

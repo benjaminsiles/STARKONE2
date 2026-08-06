@@ -12,13 +12,19 @@
 }
 
 html {
-  background-color: var(--color-brand);
+  background-color: rgb(29, 158, 117);
+  background-image: none;
 }
 
 body {
   margin: 0;
-  background-color: var(--color-brand);
-  color: var(--color-on-brand);
+  background-color: rgb(29, 158, 117);
+  color: #ffffff;
+}
+
+#root {
+  min-height: 100vh;
+  background-color: rgb(29, 158, 117);
 }
 
 * {

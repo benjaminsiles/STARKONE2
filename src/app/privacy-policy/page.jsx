@@ -3,12 +3,18 @@ import { SmoothScroll } from "../../components/SmoothScroll";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
 
+const BRAND_GREEN = "rgb(29, 158, 117)";
+const ON_BRAND = "#ffffff";
+
 export default function PrivacyPolicy() {
   return (
     <>
       <Navbar />
       <SmoothScroll>
-        <div className="bg-brand min-h-screen text-white" style={{ fontFamily: "sans-serif" }}>
+        <div
+          className="bg-brand min-h-screen text-white"
+          style={{ fontFamily: "sans-serif", backgroundColor: BRAND_GREEN, color: ON_BRAND }}
+        >
           <main className="pt-32 pb-20 px-6">
             <div className="max-w-3xl mx-auto">
               <div className="mb-16">

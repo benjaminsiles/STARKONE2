@@ -22,14 +22,16 @@ const ON_BRAND = "#ffffff";
 ───────────────────────────────────────────── */
 function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-end bg-brand overflow-hidden">
+    <section
+      className="relative min-h-screen flex flex-col justify-end bg-brand overflow-hidden"
+      style={{ backgroundColor: BRAND_GREEN, color: ON_BRAND }}
+    >
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1643877970211-1a47b2e528b7?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="fusion plasma nebula"
           className="w-full h-full object-cover opacity-10"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-brand via-brand/80 to-transparent" />
       </div>
 
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-white/70 z-10" />
@@ -484,7 +486,10 @@ export default function StarkOneLanding() {
     <>
       <Navbar />
       <SmoothScroll>
-        <div className="min-h-screen bg-brand text-white" style={{ fontFamily: "sans-serif" }}>
+        <div
+          className="min-h-screen bg-brand text-white"
+          style={{ fontFamily: "sans-serif", backgroundColor: BRAND_GREEN, color: ON_BRAND }}
+        >
           <Hero />
 
           <CatalogPanel
